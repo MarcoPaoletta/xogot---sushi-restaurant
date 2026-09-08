@@ -237,7 +237,6 @@ func _on_customer_served(c: Node, correct: bool, patience_left: float) -> void:
 		var mult := 1.0 + 0.25 * minf(streak, 8)
 		var tip := int(floor(price * 0.5 * patience_left * mult))
 		earnings += price + tip
-		happy += 1
 		hud.set_earnings(earnings, price + tip)
 		hud.set_streak(streak)
 		Audio.play("coin", pow(2.0, minf(streak, 8) * 2.0 / 12.0), -3.0)
@@ -253,6 +252,8 @@ func _on_customer_served(c: Node, correct: bool, patience_left: float) -> void:
 func _on_customer_left(c: Node, was_happy: bool) -> void:
 	handled += 1
 	spawner.free_seat(c.seat_index)
+	if was_happy:
+		happy += 1
 	if not was_happy:
 		angry += 1
 		strikes += 1
