@@ -1,0 +1,25 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://brdx54gkcce2y"
+path="res://.godot/imported/FoodIngredient_Squid.obj-afb978fc1bb8b5dad98d8ee777b85dfa.mesh"
+
+[deps]
+
+files=["res://.godot/imported/FoodIngredient_Squid.obj-afb978fc1bb8b5dad98d8ee777b85dfa.mesh"]
+
+source_file="res://assets/Sushi Restaurant Kit - May 2023/Food/OBJ/FoodIngredient_Squid.obj"
+dest_files=["res://.godot/imported/FoodIngredient_Squid.obj-afb978fc1bb8b5dad98d8ee777b85dfa.mesh", "res://.godot/imported/FoodIngredient_Squid.obj-afb978fc1bb8b5dad98d8ee777b85dfa.mesh"]
+
+[params]
+
+generate_tangents=true
+generate_lods=true
+generate_shadow_mesh=true
+generate_lightmap_uv2=false
+generate_lightmap_uv2_texel_size=0.2
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+force_disable_mesh_compression=false

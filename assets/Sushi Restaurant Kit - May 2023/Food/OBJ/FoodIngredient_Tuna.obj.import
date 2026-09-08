@@ -1,0 +1,25 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://b0isw6dr60ej2"
+path="res://.godot/imported/FoodIngredient_Tuna.obj-40153456d30e12cd4e7e960601e1614a.mesh"
+
+[deps]
+
+files=["res://.godot/imported/FoodIngredient_Tuna.obj-40153456d30e12cd4e7e960601e1614a.mesh"]
+
+source_file="res://assets/Sushi Restaurant Kit - May 2023/Food/OBJ/FoodIngredient_Tuna.obj"
+dest_files=["res://.godot/imported/FoodIngredient_Tuna.obj-40153456d30e12cd4e7e960601e1614a.mesh", "res://.godot/imported/FoodIngredient_Tuna.obj-40153456d30e12cd4e7e960601e1614a.mesh"]
+
+[params]
+
+generate_tangents=true
+generate_lods=true
+generate_shadow_mesh=true
+generate_lightmap_uv2=false
+generate_lightmap_uv2_texel_size=0.2
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+force_disable_mesh_compression=false

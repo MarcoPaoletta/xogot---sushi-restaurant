@@ -1,0 +1,25 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://dlbxeycr3wy2b"
+path="res://.godot/imported/Environment_Counter_End.obj-761292c00953a0dd85ea2a3051142b06.mesh"
+
+[deps]
+
+files=["res://.godot/imported/Environment_Counter_End.obj-761292c00953a0dd85ea2a3051142b06.mesh"]
+
+source_file="res://assets/Sushi Restaurant Kit - May 2023/Environment/OBJ/Environment_Counter_End.obj"
+dest_files=["res://.godot/imported/Environment_Counter_End.obj-761292c00953a0dd85ea2a3051142b06.mesh", "res://.godot/imported/Environment_Counter_End.obj-761292c00953a0dd85ea2a3051142b06.mesh"]
+
+[params]
+
+generate_tangents=true
+generate_lods=true
+generate_shadow_mesh=true
+generate_lightmap_uv2=false
+generate_lightmap_uv2_texel_size=0.2
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+force_disable_mesh_compression=false

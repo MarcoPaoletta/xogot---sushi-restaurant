@@ -1,0 +1,25 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://1d3kkbcbo4xw"
+path="res://.godot/imported/FoodIngredient_Avocado.obj-6db3f62b51b452cb6bb0a8614c93b386.mesh"
+
+[deps]
+
+files=["res://.godot/imported/FoodIngredient_Avocado.obj-6db3f62b51b452cb6bb0a8614c93b386.mesh"]
+
+source_file="res://assets/Sushi Restaurant Kit - May 2023/Food/OBJ/FoodIngredient_Avocado.obj"
+dest_files=["res://.godot/imported/FoodIngredient_Avocado.obj-6db3f62b51b452cb6bb0a8614c93b386.mesh", "res://.godot/imported/FoodIngredient_Avocado.obj-6db3f62b51b452cb6bb0a8614c93b386.mesh"]
+
+[params]
+
+generate_tangents=true
+generate_lods=true
+generate_shadow_mesh=true
+generate_lightmap_uv2=false
+generate_lightmap_uv2_texel_size=0.2
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+force_disable_mesh_compression=false

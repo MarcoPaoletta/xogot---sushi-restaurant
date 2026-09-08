@@ -1,0 +1,25 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://c824hvmp0y6d4"
+path="res://.godot/imported/Floor_Wood.obj-71bd24ebd6ec7622170fb074c96a057c.mesh"
+
+[deps]
+
+files=["res://.godot/imported/Floor_Wood.obj-71bd24ebd6ec7622170fb074c96a057c.mesh"]
+
+source_file="res://assets/Sushi Restaurant Kit - May 2023/Environment/OBJ/Floor_Wood.obj"
+dest_files=["res://.godot/imported/Floor_Wood.obj-71bd24ebd6ec7622170fb074c96a057c.mesh", "res://.godot/imported/Floor_Wood.obj-71bd24ebd6ec7622170fb074c96a057c.mesh"]
+
+[params]
+
+generate_tangents=true
+generate_lods=true
+generate_shadow_mesh=true
+generate_lightmap_uv2=false
+generate_lightmap_uv2_texel_size=0.2
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+force_disable_mesh_compression=false

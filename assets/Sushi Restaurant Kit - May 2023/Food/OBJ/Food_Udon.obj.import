@@ -1,0 +1,25 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://b2xau8xt6vmqx"
+path="res://.godot/imported/Food_Udon.obj-3ba2b40994b0e4e02a6654e7925b8d3e.mesh"
+
+[deps]
+
+files=["res://.godot/imported/Food_Udon.obj-3ba2b40994b0e4e02a6654e7925b8d3e.mesh"]
+
+source_file="res://assets/Sushi Restaurant Kit - May 2023/Food/OBJ/Food_Udon.obj"
+dest_files=["res://.godot/imported/Food_Udon.obj-3ba2b40994b0e4e02a6654e7925b8d3e.mesh", "res://.godot/imported/Food_Udon.obj-3ba2b40994b0e4e02a6654e7925b8d3e.mesh"]
+
+[params]
+
+generate_tangents=true
+generate_lods=true
+generate_shadow_mesh=true
+generate_lightmap_uv2=false
+generate_lightmap_uv2_texel_size=0.2
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+force_disable_mesh_compression=false

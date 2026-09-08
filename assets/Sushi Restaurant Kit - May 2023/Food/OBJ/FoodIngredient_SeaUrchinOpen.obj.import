@@ -1,0 +1,25 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://bkdt2ifbh8t3c"
+path="res://.godot/imported/FoodIngredient_SeaUrchinOpen.obj-11cfb01bfc39d5ab061b5e43a3a48873.mesh"
+
+[deps]
+
+files=["res://.godot/imported/FoodIngredient_SeaUrchinOpen.obj-11cfb01bfc39d5ab061b5e43a3a48873.mesh"]
+
+source_file="res://assets/Sushi Restaurant Kit - May 2023/Food/OBJ/FoodIngredient_SeaUrchinOpen.obj"
+dest_files=["res://.godot/imported/FoodIngredient_SeaUrchinOpen.obj-11cfb01bfc39d5ab061b5e43a3a48873.mesh", "res://.godot/imported/FoodIngredient_SeaUrchinOpen.obj-11cfb01bfc39d5ab061b5e43a3a48873.mesh"]
+
+[params]
+
+generate_tangents=true
+generate_lods=true
+generate_shadow_mesh=true
+generate_lightmap_uv2=false
+generate_lightmap_uv2_texel_size=0.2
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+force_disable_mesh_compression=false

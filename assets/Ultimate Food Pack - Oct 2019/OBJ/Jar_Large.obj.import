@@ -1,0 +1,25 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://bvdu78xx5t0bt"
+path="res://.godot/imported/Jar_Large.obj-31ef2d0f24345c7c40d6f26dc9912936.mesh"
+
+[deps]
+
+files=["res://.godot/imported/Jar_Large.obj-31ef2d0f24345c7c40d6f26dc9912936.mesh"]
+
+source_file="res://assets/Ultimate Food Pack - Oct 2019/OBJ/Jar_Large.obj"
+dest_files=["res://.godot/imported/Jar_Large.obj-31ef2d0f24345c7c40d6f26dc9912936.mesh", "res://.godot/imported/Jar_Large.obj-31ef2d0f24345c7c40d6f26dc9912936.mesh"]
+
+[params]
+
+generate_tangents=true
+generate_lods=true
+generate_shadow_mesh=true
+generate_lightmap_uv2=false
+generate_lightmap_uv2_texel_size=0.2
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+force_disable_mesh_compression=false

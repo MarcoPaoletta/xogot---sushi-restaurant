@@ -1,0 +1,25 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://djclnt7ncwupu"
+path="res://.godot/imported/Apple_Green.obj-9e22dba55797e0967a610b61f48277ca.mesh"
+
+[deps]
+
+files=["res://.godot/imported/Apple_Green.obj-9e22dba55797e0967a610b61f48277ca.mesh"]
+
+source_file="res://assets/Ultimate Food Pack - Oct 2019/OBJ/Apple_Green.obj"
+dest_files=["res://.godot/imported/Apple_Green.obj-9e22dba55797e0967a610b61f48277ca.mesh", "res://.godot/imported/Apple_Green.obj-9e22dba55797e0967a610b61f48277ca.mesh"]
+
+[params]
+
+generate_tangents=true
+generate_lods=true
+generate_shadow_mesh=true
+generate_lightmap_uv2=false
+generate_lightmap_uv2_texel_size=0.2
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+force_disable_mesh_compression=false
