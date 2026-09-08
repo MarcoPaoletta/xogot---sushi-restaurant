@@ -25,20 +25,29 @@ func on_tap() -> void:
 
 
 ## Try to add an ingredient. Returns "added", "full", "duplicate" or "ruined".
+## A plate that already matches a dish (rice + nori = onigiri) can keep growing into a longer
+## recipe (rice + nori + cucumber = cucumber roll); tapping a customer serves whatever matches now.
 func add(ingredient: String) -> String:
 	if ruined:
 		return "ruined"
 	if ingredients.has(ingredient):
 		return "duplicate"
-	if ingredients.size() >= Recipes.MAX_INGREDIENTS or dish != "":
+	if ingredients.size() >= Recipes.MAX_INGREDIENTS:
 		return "full"
-	ingredients.append(ingredient)
+	var candidate := ingredients.duplicate()
+	candidate.append(ingredient)
+	if Recipes.match_dish(candidate) == "" and not Recipes.is_prefix(candidate):
+		# Would ruin the plate: refuse instead of punishing the tap.
+		Audio.play("buzz", 1.0, -8.0)
+		FX.shake(stack, 0.1, 0.25)
+		return "ruined"
+	ingredients = candidate
 	_spawn_ingredient(ingredient, ingredients.size() - 1)
 	dish = Recipes.match_dish(ingredients)
 	if dish != "":
 		_show_finished()
-	elif not Recipes.is_prefix(ingredients):
-		_ruin()
+	else:
+		_show_stack()
 	changed.emit(ingredients, dish)
 	return "added"
 
@@ -87,10 +96,19 @@ func _spawn_ingredient(ingredient: String, index: int) -> void:
 	Audio.play_var("tap", 0.1, -4.0)
 
 
+func _show_stack() -> void:
+	stack.visible = true
+	for c in finished.get_children():
+		c.queue_free()
+	glow.light_energy = 0.0
+
+
 func _show_finished() -> void:
 	var info: Dictionary = Recipes.DISHES[dish]
 	var scene := Recipes.load_model(info["model"])
 	stack.visible = false
+	for c in finished.get_children():
+		c.queue_free()
 	if scene:
 		var m: Node3D = scene.instantiate()
 		finished.add_child(m)
