@@ -98,3 +98,13 @@ static func pop(c: Control, amount := 1.3, time := 0.25) -> void:
 	var t := c.create_tween()
 	t.tween_property(c, "scale", Vector2.ONE * amount, time * 0.35).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 	t.tween_property(c, "scale", Vector2.ONE, time * 0.65).set_trans(Tween.TRANS_ELASTIC).set_ease(Tween.EASE_OUT)
+
+
+## Pop-in for container children (never touches position): scale from 0.8 + fade.
+static func pop_in(c: Control, delay := 0.0) -> void:
+	c.modulate.a = 0.0
+	c.scale = Vector2(0.8, 0.8)
+	var t := c.create_tween().set_parallel(true)
+	t.tween_callback(func(): c.pivot_offset = c.size / 2.0).set_delay(delay)
+	t.tween_property(c, "modulate:a", 1.0, 0.25).set_delay(delay)
+	t.tween_property(c, "scale", Vector2.ONE, 0.4).set_delay(delay).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)

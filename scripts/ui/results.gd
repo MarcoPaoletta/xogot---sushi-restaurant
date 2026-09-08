@@ -45,4 +45,4 @@ func _ready() -> void:
 		tw.tween_property(s, "modulate", Color(1, 1, 1, 1.0), 0.12)
 		tw.parallel().tween_property(s, "scale", Vector2.ONE, 0.35).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 		i += 1
-	UiKit.fly_in(panel, 0.05)
+	UiKit.pop_in(panel, 0.05)

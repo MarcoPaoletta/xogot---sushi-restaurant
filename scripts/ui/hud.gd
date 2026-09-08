@@ -53,7 +53,7 @@ func _on_pause() -> void:
 
 
 func _notification(what: int) -> void:
-	if what == NOTIFICATION_APPLICATION_PAUSED or what == NOTIFICATION_APPLICATION_FOCUS_OUT:
+	if what == NOTIFICATION_APPLICATION_PAUSED:
 		if is_inside_tree() and _restaurant and not get_tree().paused and not _restaurant.finished and _restaurant.running:
 			pause_menu.open()
 

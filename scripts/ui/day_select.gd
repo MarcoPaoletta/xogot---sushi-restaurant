@@ -18,4 +18,4 @@ func _ready() -> void:
 		var card := CARD.instantiate()
 		cards.add_child(card)
 		card.setup(i)
-		UiKit.fly_in(card, 0.06 * i)
+		UiKit.pop_in(card, 0.06 * i)
