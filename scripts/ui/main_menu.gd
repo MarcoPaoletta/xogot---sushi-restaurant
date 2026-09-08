@@ -15,6 +15,7 @@ var _base_cam: Vector3
 func _ready() -> void:
 	UiKit.style_title(title, 150)
 	UiKit.style_label(subtitle, 34, Color(1, 0.95, 0.85), 8)
+	subtitle.text = "walk with ◀ ▶  ·  grab ingredients  ·  mix at the pass  ·  serve the rabbits"
 	UiKit.style_button(play_btn, UiKit.ACCENT, 52)
 	play_btn.custom_minimum_size = Vector2(420, 130)
 	UiKit.style_label(stats, 34)

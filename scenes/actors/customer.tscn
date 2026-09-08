@@ -2,9 +2,10 @@
 
 [ext_resource type="Script" uid="uid://co2q6x86r80x3" path="res://scripts/actors/customer.gd" id="1_1ih5x"]
 [ext_resource type="Material" uid="uid://cfa5t8pfx51p2" path="res://materials/ring.tres" id="2_bqnt0"]
+[ext_resource type="FontFile" uid="uid://77yfdysn1avj" path="res://assets/fonts/LilitaOne-Regular.ttf" id="3_bqnt0"]
 
-[sub_resource type="QuadMesh" id="QuadMesh_1ih5x"]
-size = Vector2(1.7, 1.7)
+[sub_resource type="QuadMesh" id="QuadMesh_bqnt0"]
+size = Vector2(1.35, 1.35)
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_bqnt0"]
 radius = 1.0
@@ -19,12 +20,25 @@ script = ExtResource("1_1ih5x")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.9, 0)
 
 [node name="DishHolder" type="Node3D" parent="OrderBubble" unique_id=1180087706]
-transform = Transform3D(1.6, 0, 0, 0, 1.6, 0, 0, 0, 1.6, 0, 0, 0)
+transform = Transform3D(1.25, 0, 0, 0, 1.25, 0, 0, 0, 1.25, 0, 0, 0)
 
 [node name="Ring" type="MeshInstance3D" parent="OrderBubble" unique_id=1164865798]
 material_override = ExtResource("2_bqnt0")
 cast_shadow = 0
-mesh = SubResource("QuadMesh_1ih5x")
+mesh = SubResource("QuadMesh_bqnt0")
+
+[node name="Recipe" type="Label3D" parent="OrderBubble" unique_id=1035321970]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.85, 0)
+pixel_size = 0.0085
+billboard = 1
+no_depth_test = true
+render_priority = 9
+modulate = Color(1, 0.97, 0.9, 1)
+outline_modulate = Color(0.2, 0.1, 0.08, 1)
+text = "Rice + Salmon"
+font = ExtResource("3_bqnt0")
+font_size = 44
+outline_size = 14
 
 [node name="TapTarget" type="Area3D" parent="." unique_id=492318719]
 collision_layer = 128

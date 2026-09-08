@@ -226,15 +226,13 @@ text = "SUSHI"
 horizontal_alignment = 1
 
 [node name="Subtitle" type="Label" parent="UI" unique_id=121385367]
-anchors_preset = 7
+anchors_preset = 5
 anchor_left = 0.5
-anchor_top = 1.0
 anchor_right = 0.5
-anchor_bottom = 1.0
 offset_left = -800.0
-offset_top = -430.0
+offset_top = 300.0
 offset_right = 800.0
-offset_bottom = -370.0
+offset_bottom = 360.0
 text = "tap the ingredients  ·  serve the rabbits  ·  keep the streak"
 horizontal_alignment = 1
 

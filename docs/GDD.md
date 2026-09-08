@@ -4,7 +4,7 @@
 **Platform:** iPad and Mac (Xogot / Godot 4.7, Mobile renderer). Touch first; mouse works identically (one pointer).
 **Engine stamp:** `config/features = ["4.7", "Mobile"]` (Xogot 1.7.2 / Godot 4.7.2) — never upgraded by the build.
 **Art:** Quaternius *Sushi Restaurant Kit* (May 2023) and Quaternius *Ultimate Food Pack* (Oct 2019), both CC0, imported at `res://assets/Sushi Restaurant Kit - May 2023/` and `res://assets/Ultimate Food Pack - Oct 2019/` (the packs' own folder names, structure untouched).
-**Document version:** 2.0 — 2026-09-08 (1.0 pre-build specification; 1.1 implementation notes; 2.0 the moving-chef redesign in section 15, which supersedes the tap controls of sections 4 and 6.2)
+**Document version:** 3.0 — 2026-09-08 (1.0 pre-build specification; 1.1 implementation notes; 2.0 the moving-chef redesign in section 15; 3.0 the readability pass in section 16)
 **Status:** Specification. At the time of writing the project contains the two asset packs, this document and nothing else: zero scenes, zero scripts.
 
 ---
@@ -417,5 +417,15 @@ Targets are chosen by the chef's X distance: stations within 1.35 u, the pass an
 
 ### 15.5 Tuning
 Walking adds roughly 2 s per order compared with V1, so Days 3–5 give 4 s more patience and 0.5 s more spawn gap than section 11 (26 s / 4.5 s, 24 s / 4 s, 24 s / 4 s); Day 1 (30 s patience, 6 s gap, 2 seats) remains comfortable, Day 5 (18 s patience, 3 s gap, 4 seats) demands planning the walk order — the intended skill.
+
+## 16. V3 — readability pass (playtest feedback)
+
+Changes after Marco played V2:
+
+- **No "Grab X" prompt.** The floating prompt only appears for *Mix*, *Serve …* and *Bin it*; a station in reach just lifts and brightens, and its own label is the name.
+- **Recipes are visible.** Each order bubble shows the recipe under the dish (`Rice + Salmon`), and a *Today's menu* panel in the top-right of the HUD lists every dish of the day as `Dish = ingredient + ingredient`.
+- **Room for the chef.** The customer counter moved forward to Z 1.2 (stools and seats at Z 3.5, pass at Z 1.75), so the corridor is 2.6 u wide (Z −2.3 … 0.3) and the panda at Z −1.0 never clips either counter. The chef is the plain `Panda` (no knife and pan), so the `Idle_Holding` / `Walk_Holding` poses show the carried stack, which now floats at Y 3.75, Z +0.7 in front of the head at 0.9× (ingredients) / 1.5× (dish).
+- **Camera** (0, 11.5, 17.5), pitch −30°, so the front and back rows separate more; order bubbles were shrunk (ring 1.35, dish 1.25×) and the tutorial messages moved down over the floor so nothing overlaps the back counter.
+- **Labels**: station labels 0.0105 pixel size, 56 px, alternating heights; "Sea urchin" is now "Urchin". The main-menu how-to line sits directly under the title and reads *walk with ◀ ▶ · grab ingredients · mix at the pass · serve the rabbits*.
 
 *End of document.*

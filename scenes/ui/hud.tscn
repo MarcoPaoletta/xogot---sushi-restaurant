@@ -117,9 +117,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -700.0
-offset_top = -330.0
+offset_top = 170.0
 offset_right = 700.0
-offset_bottom = -250.0
+offset_bottom = 250.0
 horizontal_alignment = 1
 autowrap_mode = 3
 
@@ -231,3 +231,18 @@ offset_top = -230.0
 offset_right = -50.0
 offset_bottom = -50.0
 text = "GRAB / MIX / SERVE"
+
+[node name="Menu" type="PanelContainer" parent="." unique_id=575170759]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -700.0
+offset_top = 150.0
+offset_right = -40.0
+offset_bottom = 420.0
+mouse_filter = 2
+
+[node name="VBox" type="VBoxContainer" parent="Menu" unique_id=15619645]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 4

@@ -1,12 +1,12 @@
 [gd_scene format=3 uid="uid://c7eg84t5oggrw"]
 
 [ext_resource type="Script" uid="uid://b8bne5uimtecj" path="res://scripts/actors/chef.gd" id="1_050rn"]
-[ext_resource type="PackedScene" uid="uid://cqi8koy4pefs0" path="res://assets/Sushi Restaurant Kit - May 2023/Characters/With Knife and Pan/glTF/Panda.gltf" id="2_ok42n"]
+[ext_resource type="PackedScene" uid="uid://dq6og425i1b6x" path="res://assets/Sushi Restaurant Kit - May 2023/Characters/Normal/glTF/Panda.gltf" id="2_lhe23"]
 
 [node name="Chef" type="Node3D" unique_id=1595373851]
 script = ExtResource("1_050rn")
 
-[node name="Model" parent="." unique_id=793607680 instance=ExtResource("2_ok42n")]
+[node name="Model" type="Node3D" parent="." unique_id=671744401 instance=ExtResource("2_lhe23")]
 
 [node name="Hands" type="Node3D" parent="." unique_id=497785659]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.05, 0.25)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.75, 0.7)

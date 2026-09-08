@@ -512,7 +512,7 @@ omni_range = 16.0
 omni_attenuation = 1.2
 
 [node name="Camera" type="Camera3D" parent="." unique_id=1158336992]
-transform = Transform3D(1, 0, 0, 0, 0.8910065, 0.4539905, 0, -0.4539905, 0.8910065, 0, 10.2, 17)
+transform = Transform3D(1, 0, 0, 0, 0.8660254, 0.5, 0, -0.5, 0.8660254, 0, 11.5, 17.5)
 current = true
 fov = 50.0
 
@@ -726,34 +726,34 @@ mesh = SubResource("ArrayMesh_x8876")
 [node name="Counter" type="Node3D" parent="." unique_id=1698402743]
 
 [node name="Segment1" type="Node3D" parent="Counter" unique_id=572842932 instance=ExtResource("35_ypv0g")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, 1.2)
 
 [node name="Segment2" type="Node3D" parent="Counter" unique_id=1607388872 instance=ExtResource("37_nqr2e")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, 1.2)
 
 [node name="Segment5" type="Node3D" parent="Counter" unique_id=846977290 instance=ExtResource("41_1nuq8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 1.2)
 
 [node name="Stool1" type="Node3D" parent="Counter" unique_id=1527964317 instance=ExtResource("45_3inhy")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, 2.3)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, 3.5)
 
 [node name="Stool2" type="Node3D" parent="Counter" unique_id=34429402 instance=ExtResource("45_3inhy")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 2.3)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 3.5)
 
 [node name="Stool3" type="Node3D" parent="Counter" unique_id=1211685814 instance=ExtResource("45_3inhy")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 2.3)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 3.5)
 
 [node name="Stool4" type="Node3D" parent="Counter" unique_id=1867763922 instance=ExtResource("45_3inhy")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 2.3)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 3.5)
 
 [node name="Segment3" type="Node3D" parent="Counter" unique_id=1201422525 instance=ExtResource("39_cnueb")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 1.2)
 
 [node name="Segment4" type="Node3D" parent="Counter" unique_id=440226167 instance=ExtResource("39_cnueb")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 1.2)
 
 [node name="Segment6" type="Node3D" parent="Counter" unique_id=1386468205 instance=ExtResource("35_ypv0g")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 1.2)
 
 [node name="Environment_Counter_Straight" type="MeshInstance3D" parent="Counter/Segment6" unique_id=1072418847]
 mesh = SubResource("ArrayMesh_qyngy")
@@ -773,10 +773,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.4, -3.55)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 3.7, -3.55)
 
 [node name="Bamboo" type="Node3D" parent="Decoration" unique_id=712238921 instance=ExtResource("53_hvace")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.2, 1.92, -0.3)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.2, 1.92, 0.9)
 
 [node name="Sakura" type="Node3D" parent="Decoration" unique_id=1907879340 instance=ExtResource("55_qxak5")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.2, 2.3, -0.4)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.2, 2.3, 0.8)
 
 [node name="PlantL" type="Node3D" parent="Decoration" unique_id=639708643 instance=ExtResource("57_45mbd")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.2, 0, 7.2)
@@ -840,7 +840,7 @@ script = ExtResource("66_uc25x")
 ingredient = "urchin"
 
 [node name="Plate" type="Node3D" parent="." unique_id=906528402 instance=ExtResource("71_15cxt")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.92, 0.55)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.92, 1.75)
 script = ExtResource("72_mlw54")
 
 [node name="Sink" type="Node3D" parent="." unique_id=934171909]
@@ -866,22 +866,22 @@ font_size = 56
 outline_size = 18
 
 [node name="Chef" type="Node3D" parent="." unique_id=1595373851 instance=ExtResource("77_ypv0g")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, -1.65)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, -1)
 script = ExtResource("78_rm3oj")
 
 [node name="Seats" type="Node3D" parent="." unique_id=29914355]
 
 [node name="Seat1" type="Marker3D" parent="Seats" unique_id=2057601214]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0.55, 2.3)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0.55, 3.5)
 
 [node name="Seat2" type="Marker3D" parent="Seats" unique_id=1524837097]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0.55, 2.3)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0.55, 3.5)
 
 [node name="Seat3" type="Marker3D" parent="Seats" unique_id=1799051972]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0.55, 2.3)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0.55, 3.5)
 
 [node name="Seat4" type="Marker3D" parent="Seats" unique_id=154493239]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0.55, 2.3)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0.55, 3.5)
 
 [node name="Door" type="Marker3D" parent="." unique_id=1890583192]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.5, 0, 6)

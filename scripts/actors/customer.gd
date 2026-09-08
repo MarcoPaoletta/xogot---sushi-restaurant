@@ -36,6 +36,7 @@ var _served_once := false
 @onready var bubble: Node3D = $OrderBubble
 @onready var dish_holder: Node3D = $OrderBubble/DishHolder
 @onready var ring: MeshInstance3D = $OrderBubble/Ring
+@onready var recipe_label: Label3D = $OrderBubble/Recipe
 @onready var tap_target: Area3D = $TapTarget
 
 
@@ -113,6 +114,10 @@ func _show_bubble() -> void:
 		_dish_model = scene.instantiate()
 		dish_holder.add_child(_dish_model)
 		_dish_model.position = Vector3(0, -0.25, 0)
+	var names: Array = []
+	for ing in Recipes.DISHES[order]["ingredients"]:
+		names.append(Recipes.INGREDIENTS[ing]["name"])
+	recipe_label.text = " + ".join(names)
 	bubble.visible = true
 	bubble.scale = Vector3.ONE * 0.01
 	bubble.create_tween().tween_property(bubble, "scale", Vector3.ONE, 0.35).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)

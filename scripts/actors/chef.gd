@@ -7,7 +7,7 @@ signal interact_requested
 const SPEED := 7.5
 const MIN_X := -9.2
 const MAX_X := 9.6
-const STACK_STEP := 0.55
+const STACK_STEP := 0.62
 
 var held: Array = []          # ingredient ids in pickup order
 var held_dish := ""           # dish id once mixed
@@ -93,7 +93,7 @@ func add_ingredient(id: String) -> String:
 	if Recipes.match_dish(candidate) == "" and not Recipes.is_prefix(candidate):
 		return "ruined"
 	held = candidate
-	_spawn_held(Recipes.INGREDIENTS[id]["model"], held.size() - 1, 0.6 * float(Recipes.INGREDIENTS[id].get("scale", 1.0)))
+	_spawn_held(Recipes.INGREDIENTS[id]["model"], held.size() - 1, 0.9 * float(Recipes.INGREDIENTS[id].get("scale", 1.0)))
 	return "added"
 
 
@@ -105,7 +105,7 @@ func mix() -> String:
 	held_dish = dish
 	held.clear()
 	_clear_held_models()
-	_spawn_held(Recipes.DISHES[dish]["model"], 0, 1.1)
+	_spawn_held(Recipes.DISHES[dish]["model"], 0, 1.5)
 	return dish
 
 
@@ -139,6 +139,6 @@ func _clear_held_models() -> void:
 
 func _process(delta: float) -> void:
 	# Gentle bob of the carried stack.
-	hands.position.y = 3.05 + sin(Time.get_ticks_msec() / 1000.0 * 4.0) * 0.05
+	hands.position.y = 3.75 + sin(Time.get_ticks_msec() / 1000.0 * 4.0) * 0.05
 	for c in hands.get_children():
 		c.rotation.y += delta * 1.2

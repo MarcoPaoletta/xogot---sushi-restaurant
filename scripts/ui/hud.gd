@@ -14,6 +14,7 @@ var _target_earnings := 0
 @onready var title: Label = $Title
 @onready var screen_fx: ColorRect = $ScreenFX
 @onready var pause_menu: Control = $PauseMenu
+@onready var menu_box: VBoxContainer = $Menu/VBox
 @onready var left_btn: Button = $Touch/Left
 @onready var right_btn: Button = $Touch/Right
 @onready var act_btn: Button = $Touch/Act
@@ -51,6 +52,19 @@ func _ready() -> void:
 func setup(restaurant: Node) -> void:
 	_restaurant = restaurant
 	pause_menu.setup(restaurant)
+	$Menu.add_theme_stylebox_override("panel", UiKit.panel(Color(0.16, 0.09, 0.07, 0.72), 22.0))
+	var title := Label.new()
+	title.text = "Today's menu"
+	UiKit.style_label(title, 30, UiKit.GOLD, 6)
+	menu_box.add_child(title)
+	for id in restaurant.day["dishes"]:
+		var names: Array = []
+		for ing in Recipes.DISHES[id]["ingredients"]:
+			names.append(Recipes.INGREDIENTS[ing]["name"])
+		var l := Label.new()
+		l.text = "%s  =  %s" % [Recipes.dish_name(id), " + ".join(names)]
+		UiKit.style_label(l, 24, UiKit.PAPER, 5)
+		menu_box.add_child(l)
 
 
 func _unhandled_input(event: InputEvent) -> void:

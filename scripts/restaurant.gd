@@ -120,7 +120,7 @@ func _update_target() -> void:
 		_target_kind = best_kind
 		if _target and _target.has_method("set_highlight"):
 			_target.set_highlight(true)
-	if _target == null or not running:
+	if _target == null or not running or _target_kind == "station":
 		prompt.visible = false
 		return
 	var text := ""
