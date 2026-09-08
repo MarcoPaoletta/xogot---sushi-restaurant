@@ -14,7 +14,7 @@ const INGREDIENTS := {
 	"egg": {"name": "Tamago", "model": UFP + "Egg_Fried.fbx", "scale": 0.9},
 	"tentacle": {"name": "Octopus", "model": KIT + "Food/glTF/FoodIngredient_Tentacle.gltf", "scale": 1.0},
 	"cucumber": {"name": "Cucumber", "model": KIT + "Food/glTF/FoodIngredient_SlicedCucumber.gltf", "scale": 1.0},
-	"urchin": {"name": "Sea urchin", "model": KIT + "Food/glTF/FoodIngredient_SeaUrchinOpen.gltf", "scale": 0.9},
+	"urchin": {"name": "Urchin", "model": KIT + "Food/glTF/FoodIngredient_SeaUrchinOpen.gltf", "scale": 0.9},
 }
 
 ## Station order left to right on the counter.

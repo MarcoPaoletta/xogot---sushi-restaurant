@@ -20,14 +20,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.14, 0)
 transform = Transform3D(1, 0, 0, 0, -1, 8.742278e-08, 0, -8.742278e-08, -1, 0, 0.62, 0)
 
 [node name="Label" type="Label3D" parent="." unique_id=64846186]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.95, 0)
-pixel_size = 0.006
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.45, 0.1)
+pixel_size = 0.0105
 billboard = 1
 modulate = Color(1, 0.97, 0.9, 1)
 outline_modulate = Color(0.2, 0.1, 0.08, 1)
 text = "Rice"
 font = ExtResource("6_mpi4a")
-font_size = 44
+font_size = 56
+outline_size = 18
 
 [node name="TapTarget" type="Area3D" parent="." unique_id=1597579781]
 collision_layer = 128

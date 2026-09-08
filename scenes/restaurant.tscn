@@ -855,15 +855,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
 shape = SubResource("BoxShape3D_45mbd")
 
 [node name="Label" type="Label3D" parent="Sink" unique_id=1214449218]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4, 1.5, 0.4)
-pixel_size = 0.006
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4, 1.9, 0.4)
+pixel_size = 0.0105
 billboard = 1
 modulate = Color(1, 0.97, 0.9, 1)
 outline_modulate = Color(0.2, 0.1, 0.08, 1)
 text = "Sink"
 font = ExtResource("77_uc25x")
-font_size = 44
-outline_size = 16
+font_size = 56
+outline_size = 18
 
 [node name="Chef" type="Node3D" parent="." unique_id=1595373851 instance=ExtResource("77_ypv0g")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, -1.65)
@@ -897,7 +897,7 @@ script = ExtResource("83_1nuq8")
 
 [node name="Prompt" type="Label3D" parent="." unique_id=1959086994]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.5, -3)
-pixel_size = 0.0075
+pixel_size = 0.0095
 billboard = 1
 no_depth_test = true
 render_priority = 10
@@ -905,5 +905,5 @@ modulate = Color(1, 0.95, 0.75, 1)
 outline_modulate = Color(0.2, 0.1, 0.08, 1)
 text = "Grab"
 font = ExtResource("77_uc25x")
-font_size = 52
-outline_size = 14
+font_size = 60
+outline_size = 18
