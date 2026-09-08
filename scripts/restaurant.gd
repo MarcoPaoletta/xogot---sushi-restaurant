@@ -72,29 +72,51 @@ func _process(delta: float) -> void:
 
 
 ## One tap = one ray from the camera against the tap targets (layer 8). Works for mouse, touch and injected input.
+## Every target along the ray is collected; stations win over the sink, the plate and customers, so a rabbit
+## sitting in front of a station never swallows the tap.
 func _unhandled_input(event: InputEvent) -> void:
 	if not FX.is_tap(event) or not running:
 		return
 	var pos: Vector2 = event.position
 	var from := camera.project_ray_origin(pos)
 	var to := from + camera.project_ray_normal(pos) * 200.0
-	var q := PhysicsRayQueryParameters3D.create(from, to, 128)
-	q.collide_with_areas = true
-	q.collide_with_bodies = false
-	var hit := get_world_3d().direct_space_state.intersect_ray(q)
-	if hit.is_empty():
+	var space := get_world_3d().direct_space_state
+	var exclude: Array[RID] = []
+	var hits: Array = []
+	for i in 6:
+		var q := PhysicsRayQueryParameters3D.create(from, to, 128)
+		q.collide_with_areas = true
+		q.collide_with_bodies = false
+		q.exclude = exclude
+		var hit := space.intersect_ray(q)
+		if hit.is_empty():
+			break
+		hits.append(hit["collider"])
+		exclude.append(hit["rid"])
+	if hits.is_empty():
 		return
-	var area: Node = hit["collider"]
 	get_viewport().set_input_as_handled()
-	if area == sink_target:
+	var best: Node = null
+	var best_rank := 99
+	for area in hits:
+		var rank := 3
+		var owner_node: Node = area.get_parent()
+		if area == sink_target:
+			rank = 1
+		elif owner_node is Node3D and owner_node.get_parent() == stations:
+			rank = 0
+		elif owner_node == plate:
+			rank = 2
+		if rank < best_rank:
+			best_rank = rank
+			best = area
+	if best == sink_target:
 		_on_sink_tapped()
 		return
-	var owner_node := area.get_parent()
-	if owner_node and owner_node.has_method("on_tap"):
-		owner_node.on_tap()
+	var target := best.get_parent()
+	if target and target.has_method("on_tap"):
+		target.on_tap()
 
-
-# --- taps ------------------------------------------------------------------------
 
 func _on_station_tapped(ingredient: String) -> void:
 	if not running:
@@ -187,6 +209,7 @@ func _fly_dish(dish: String, c: Node3D) -> void:
 
 func _spawn_customer(orders: Array, seat_index: int) -> void:
 	var c := CUSTOMER.instantiate()
+	c.name = "Customer%d" % (spawner.spawned + 1)
 	var seat: Node3D = seats.get_child(seat_index)
 	var model_path: String = KIT_CHARS + spawner.model_for(spawner.spawned) + ".gltf"
 	c.setup(model_path, orders, float(day["patience"]), seat_index, seat.global_position, door.global_position)
