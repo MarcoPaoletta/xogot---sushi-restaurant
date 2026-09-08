@@ -1,0 +1,11 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://cfa5t8pfx51p2"]
+
+[ext_resource type="Shader" uid="uid://ba3regogxjamx" path="res://assets/shaders/ring.gdshader" id="1_8q2ab"]
+
+[resource]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("1_8q2ab")
+shader_parameter/progress = 1.0
+shader_parameter/thickness = 0.16
+shader_parameter/pulse = 0.0

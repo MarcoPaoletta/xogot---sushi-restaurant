@@ -1,0 +1,11 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://d8sux2kof1px"]
+
+[ext_resource type="Shader" uid="uid://bikubh1jkt5ae" path="res://assets/shaders/screen_fx.gdshader" id="1_aany0"]
+
+[resource]
+shader = ExtResource("1_aany0")
+shader_parameter/vignette = 0.3
+shader_parameter/flash = 0.0
+shader_parameter/flash_color = Color(1, 0.25, 0.2, 1)
+shader_parameter/fade = 0.0
+shader_parameter/fade_color = Color(0.12, 0.06, 0.05, 1)

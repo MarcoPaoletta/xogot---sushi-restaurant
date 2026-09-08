@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://cplgwn0rgeos5"]
+
+[ext_resource type="Script" uid="uid://cisk6h5invtge" path="res://scripts/ui/main.gd" id="1_0wfyh"]
+[ext_resource type="Material" uid="uid://dnlhd0y5t8kx3" path="res://materials/screen_fade.tres" id="2_sugp2"]
+
+[node name="Main" type="Node" unique_id=1205987502]
+script = ExtResource("1_0wfyh")
+
+[node name="SceneSlot" type="Node" parent="." unique_id=1014812696]
+
+[node name="Fader" type="CanvasLayer" parent="." unique_id=1346752291]
+layer = 100
+
+[node name="Rect" type="ColorRect" parent="Fader" unique_id=1940019050]
+material = ExtResource("2_sugp2")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
