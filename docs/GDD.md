@@ -416,6 +416,6 @@ The chef's carrying state uses the pack's `Idle_Holding` / `Walk_Holding` clips;
 Targets are chosen by the chef's X distance: stations within 1.35 u, the pass and the sink within 1.7 u, a *waiting* customer within 1.35 u of its stool. Stations are not targets while a mixed dish is carried; the pass is only a target while carrying an unmixed stack; the sink only while carrying anything; a customer only while carrying a mixed dish. Among candidates the closest wins.
 
 ### 15.5 Tuning
-Day parameters (section 11) are unchanged. Walking adds roughly 2 s per order compared with V1; Day 1 (30 s patience, 6 s gap, 2 seats) remains comfortable, Day 5 (18 s patience, 3 s gap, 4 seats) demands planning the walk order — the intended skill.
+Walking adds roughly 2 s per order compared with V1, so Days 3–5 give 4 s more patience and 0.5 s more spawn gap than section 11 (26 s / 4.5 s, 24 s / 4 s, 22 s / 3.5 s); Day 1 (30 s patience, 6 s gap, 2 seats) remains comfortable, Day 5 (18 s patience, 3 s gap, 4 seats) demands planning the walk order — the intended skill.
 
 *End of document.*

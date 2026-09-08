@@ -13,11 +13,11 @@ const DAYS: Array[Dictionary] = [
 	{"name": "Regulars", "customers": 10, "seats": 3, "dishes": ["salmon_nigiri", "maguro_nigiri", "onigiri", "ebi_nigiri", "cucumber_roll"],
 		"stations": ["rice", "nori", "salmon", "tuna", "ebi", "cucumber"], "patience": 26.0, "gap": 5.0, "target": 100, "double_every": 0},
 	{"name": "Lunch rush", "customers": 12, "seats": 4, "dishes": ["salmon_nigiri", "maguro_nigiri", "onigiri", "ebi_nigiri", "cucumber_roll", "tamago_nigiri", "salmon_roll"],
-		"stations": ["rice", "nori", "salmon", "tuna", "ebi", "cucumber", "egg"], "patience": 22.0, "gap": 4.0, "target": 150, "double_every": 4},
+		"stations": ["rice", "nori", "salmon", "tuna", "ebi", "cucumber", "egg"], "patience": 26.0, "gap": 4.5, "target": 150, "double_every": 4},
 	{"name": "Festival", "customers": 14, "seats": 4, "dishes": ["salmon_nigiri", "maguro_nigiri", "onigiri", "ebi_nigiri", "cucumber_roll", "tamago_nigiri", "salmon_roll", "octopus_nigiri", "urchin_roll"],
-		"stations": ["rice", "nori", "salmon", "tuna", "ebi", "cucumber", "egg", "tentacle", "urchin"], "patience": 20.0, "gap": 3.5, "target": 210, "double_every": 4},
+		"stations": ["rice", "nori", "salmon", "tuna", "ebi", "cucumber", "egg", "tentacle", "urchin"], "patience": 24.0, "gap": 4.0, "target": 210, "double_every": 4},
 	{"name": "Grand finale", "customers": 16, "seats": 4, "dishes": ["salmon_nigiri", "maguro_nigiri", "onigiri", "ebi_nigiri", "cucumber_roll", "tamago_nigiri", "salmon_roll", "octopus_nigiri", "urchin_roll"],
-		"stations": ["rice", "nori", "salmon", "tuna", "ebi", "cucumber", "egg", "tentacle", "urchin"], "patience": 18.0, "gap": 3.0, "target": 280, "double_every": 4},
+		"stations": ["rice", "nori", "salmon", "tuna", "ebi", "cucumber", "egg", "tentacle", "urchin"], "patience": 22.0, "gap": 3.5, "target": 280, "double_every": 4},
 ]
 
 var current_day := 0
