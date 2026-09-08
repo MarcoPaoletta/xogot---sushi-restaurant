@@ -107,6 +107,8 @@ func _unhandled_input(event: InputEvent) -> void:
 			rank = 0
 		elif owner_node == plate:
 			rank = 2
+		elif owner_node.has_method("on_tap") and "state" in owner_node and owner_node.state != owner_node.State.WAITING:
+			rank = 5   # a rabbit walking past never steals a tap from a seated one
 		if rank < best_rank:
 			best_rank = rank
 			best = area
