@@ -23,10 +23,14 @@ func bake(path: String) -> Texture2D:
 	var s := 1.0 / maxf(longest, 0.01)
 	m.scale = Vector3.ONE * s
 	m.position = -aabb.get_center() * s
+	m.rotate_y(deg_to_rad(-32.0))   # three-quarter view reads better than a flat front
 	render_target_update_mode = SubViewport.UPDATE_ALWAYS
 	await RenderingServer.frame_post_draw
 	await RenderingServer.frame_post_draw
-	var tex := ImageTexture.create_from_image(get_texture().get_image())
+	await RenderingServer.frame_post_draw
+	var img := get_texture().get_image()
+	img.generate_mipmaps()
+	var tex := ImageTexture.create_from_image(img)
 	m.queue_free()
 	render_target_update_mode = SubViewport.UPDATE_DISABLED
 	_cache[path] = tex

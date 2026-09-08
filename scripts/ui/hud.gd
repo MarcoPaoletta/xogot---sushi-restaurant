@@ -54,8 +54,18 @@ func _ready() -> void:
 func setup(restaurant: Node) -> void:
 	_restaurant = restaurant
 	pause_menu.setup(restaurant)
-	$Menu.add_theme_stylebox_override("panel", UiKit.panel(Color(0.16, 0.09, 0.07, 0.8), 22.0))
-	UiKit.style_button(menu_btn, Color(0.35, 0.25, 0.22, 0.9), 44)
+	var board := StyleBoxFlat.new()
+	board.bg_color = Color(0.99, 0.96, 0.9)
+	board.set_corner_radius_all(28)
+	board.set_content_margin_all(26)
+	board.border_color = UiKit.WOOD
+	board.set_border_width_all(6)
+	board.shadow_color = Color(0, 0, 0, 0.3)
+	board.shadow_size = 12
+	board.shadow_offset = Vector2(0, 8)
+	$Menu.add_theme_stylebox_override("panel", board)
+	menu_box.add_theme_constant_override("separation", 14)
+	UiKit.style_button(menu_btn, Color(0.35, 0.25, 0.22, 0.92), 48)
 	menu_btn.custom_minimum_size = Vector2(96, 96)
 	menu_btn.pressed.connect(_toggle_menu)
 	$Menu.visible = false
@@ -68,41 +78,53 @@ func _toggle_menu() -> void:
 		UiKit.pop_in($Menu, 0.0)
 
 
-## One row per dish: [dish] = [ingredient] + [ingredient] (+ [ingredient]), icons baked from the real models.
+## One row per dish: [ingredient] + [ingredient] = [dish], every icon baked from the real model.
 func _build_menu(dishes: Array) -> void:
 	for c in menu_box.get_children():
 		c.queue_free()
 	for id in dishes:
 		var row := HBoxContainer.new()
-		row.alignment = BoxContainer.ALIGNMENT_BEGIN
-		row.add_theme_constant_override("separation", 6)
+		row.alignment = BoxContainer.ALIGNMENT_END
+		row.add_theme_constant_override("separation", 10)
 		row.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		menu_box.add_child(row)
-		row.add_child(_icon(await icon_baker.bake(Recipes.DISHES[id]["model"]), 124))
-		row.add_child(_symbol("="))
 		var first := true
 		for ing in Recipes.DISHES[id]["ingredients"]:
 			if not first:
 				row.add_child(_symbol("+"))
 			first = false
-			row.add_child(_icon(await icon_baker.bake(Recipes.INGREDIENTS[ing]["model"]), 100))
+			row.add_child(_chip(await icon_baker.bake(Recipes.INGREDIENTS[ing]["model"]), 104))
+		row.add_child(_symbol("="))
+		row.add_child(_chip(await icon_baker.bake(Recipes.DISHES[id]["model"]), 124))
 
 
-func _icon(tex: Texture2D, size: int) -> TextureRect:
+## An icon on a rounded white chip.
+func _chip(tex: Texture2D, size: int) -> Control:
+	var chip := PanelContainer.new()
+	var sb := StyleBoxFlat.new()
+	sb.bg_color = Color(0.94, 0.9, 0.82)
+	sb.set_corner_radius_all(20)
+	sb.set_content_margin_all(6)
+	sb.border_color = Color(0.86, 0.78, 0.66)
+	sb.set_border_width_all(3)
+	chip.add_theme_stylebox_override("panel", sb)
+	chip.custom_minimum_size = Vector2(size, size)
+	chip.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	var t := TextureRect.new()
 	t.texture = tex
-	t.custom_minimum_size = Vector2(size, size)
 	t.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	t.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	t.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
 	t.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	return t
+	chip.add_child(t)
+	return chip
 
 
 func _symbol(text: String) -> Label:
 	var l := Label.new()
 	l.text = text
 	l.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-	UiKit.style_label(l, 44, UiKit.GOLD, 6)
+	UiKit.style_label(l, 52, UiKit.INK, 0)
 	l.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	return l
 
