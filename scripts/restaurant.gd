@@ -88,7 +88,7 @@ func _update_target() -> void:
 	var best_d := 99.0
 	var carrying_dish: bool = chef.held_dish != ""
 	for s in stations.get_children():
-		if not s.unlocked:
+		if not s.unlocked or carrying_dish:
 			continue
 		var d: float = absf(s.global_position.x - x)
 		if d < REACH and d < best_d:
@@ -151,7 +151,7 @@ func _on_interact() -> void:
 		elif chef.held_dish != "":
 			hud.flash_message("Bring the dish to a waiting rabbit")
 		else:
-			hud.flash_message("Mix the stack at the pass in the middle")
+			hud.flash_message("Mix the stack at the pass on the left")
 		return
 	match _target_kind:
 		"station": _grab(_target)
@@ -175,7 +175,7 @@ func _grab(station: Node) -> void:
 			hud.flash_message("Serve or bin the dish first")
 		"full":
 			station.refuse()
-			hud.flash_message("Hands full — mix it at the pass")
+			hud.flash_message("Hands full — mix it at the pass on the left")
 			_tutorial("stuck")
 		"duplicate":
 			station.refuse()
@@ -359,7 +359,7 @@ func _tutorial(event: String) -> void:
 		"added":
 			if _tutorial_step < 2:
 				_tutorial_step = 2
-				hud.flash_message("Now walk to the pass in the middle and mix", 2.5)
+				hud.flash_message("Now walk to the pass on the far left and mix", 2.5)
 		"complete":
 			if _tutorial_step < 3:
 				_tutorial_step = 3
