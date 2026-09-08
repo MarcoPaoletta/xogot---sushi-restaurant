@@ -1,0 +1,224 @@
+[gd_scene format=3 uid="uid://dyiil3fpica7t"]
+
+[ext_resource type="Script" uid="uid://cg5qylph8fdh7" path="res://scripts/ui/ending.gd" id="1_2xo5r"]
+[ext_resource type="Environment" uid="uid://blid6jaedvgd5" path="res://env/restaurant.tres" id="2_1ioim"]
+[ext_resource type="PackedScene" uid="uid://dpsg8t2h2reg6" path="res://assets/Sushi Restaurant Kit - May 2023/Environment/glTF/Floor_Wood.gltf" id="3_p2dkl"]
+[ext_resource type="PackedScene" uid="uid://d0ucsif5jpbqy" path="res://assets/Sushi Restaurant Kit - May 2023/Environment/glTF/Floor_Kitchen1.gltf" id="5_4sh8l"]
+[ext_resource type="PackedScene" uid="uid://ivqneqfer7y" path="res://assets/Sushi Restaurant Kit - May 2023/Environment/glTF/Wall_Shelves.gltf" id="7_cq4ny"]
+[ext_resource type="PackedScene" uid="uid://uo8oawhwxen4" path="res://assets/Sushi Restaurant Kit - May 2023/Environment/glTF/Wall_Shoji.gltf" id="9_160lv"]
+[ext_resource type="PackedScene" uid="uid://cn205xc3jlin1" path="res://assets/Sushi Restaurant Kit - May 2023/Environment/glTF/Wall_Normal.gltf" id="11_i64ey"]
+[ext_resource type="PackedScene" uid="uid://cwbfy1jl1jlni" path="res://assets/Sushi Restaurant Kit - May 2023/Environment/glTF/Environment_Counter_Straight.gltf" id="13_yywbf"]
+[ext_resource type="PackedScene" uid="uid://junlv0na83ch" path="res://assets/Sushi Restaurant Kit - May 2023/Environment/glTF/Environment_Counter_Drawers.gltf" id="15_bqps1"]
+[ext_resource type="PackedScene" uid="uid://dww4lbt60mefo" path="res://assets/Sushi Restaurant Kit - May 2023/Environment/glTF/Environment_Counter_Straight_2.gltf" id="17_7cwmb"]
+[ext_resource type="PackedScene" uid="uid://bqynoawhh2e7q" path="res://assets/Sushi Restaurant Kit - May 2023/Environment/glTF/Environment_Counter_Doors.gltf" id="19_wvhde"]
+[ext_resource type="PackedScene" uid="uid://b1q1njk0s3ltj" path="res://assets/Sushi Restaurant Kit - May 2023/Environment/glTF/Environment_Stool.gltf" id="21_7w6dp"]
+[ext_resource type="PackedScene" uid="uid://b0ayutkhosg3h" path="res://assets/Sushi Restaurant Kit - May 2023/Decoration/glTF/Decoration_Sign.gltf" id="23_44bmx"]
+[ext_resource type="PackedScene" uid="uid://ma4tx3k0mbpc" path="res://assets/Sushi Restaurant Kit - May 2023/Decoration/glTF/Decoration_Light.gltf" id="25_xolo8"]
+[ext_resource type="PackedScene" uid="uid://ckixbp7hc3cv5" path="res://assets/Sushi Restaurant Kit - May 2023/Food/glTF/Food_SalmonNigiri.gltf" id="27_x517k"]
+[ext_resource type="PackedScene" uid="uid://cvy6fvlpxv60l" path="res://assets/Sushi Restaurant Kit - May 2023/Food/glTF/Food_Ramen.gltf" id="29_n14b8"]
+[ext_resource type="PackedScene" uid="uid://dnpi0gqf7oild" path="res://assets/Sushi Restaurant Kit - May 2023/Food/glTF/Food_Gyoza.gltf" id="31_o20cc"]
+[ext_resource type="PackedScene" uid="uid://cy1ifrn7ygbbp" path="res://assets/Sushi Restaurant Kit - May 2023/Food/glTF/Food_Udon.gltf" id="33_gx46n"]
+[ext_resource type="PackedScene" uid="uid://cqi8koy4pefs0" path="res://assets/Sushi Restaurant Kit - May 2023/Characters/With Knife and Pan/glTF/Panda.gltf" id="35_lw5p8"]
+[ext_resource type="PackedScene" uid="uid://drlwmefbeujlh" path="res://assets/Sushi Restaurant Kit - May 2023/Characters/Normal/glTF/Rabbit_Pink.gltf" id="37_268cr"]
+[ext_resource type="PackedScene" uid="uid://bygfc6i85k5yi" path="res://assets/Sushi Restaurant Kit - May 2023/Characters/Normal/glTF/Rabbit_Cyan.gltf" id="39_2e5b7"]
+[ext_resource type="PackedScene" uid="uid://cksbriwd31n3k" path="res://assets/Sushi Restaurant Kit - May 2023/Characters/Normal/glTF/Rabbit_Green.gltf" id="41_6iwwg"]
+[ext_resource type="PackedScene" uid="uid://c3lmtj5gpe2sq" path="res://assets/Sushi Restaurant Kit - May 2023/Characters/Normal/glTF/Rabbit_Purple.gltf" id="43_wlgjn"]
+
+[node name="Ending" type="Node3D" unique_id=1734054719]
+script = ExtResource("1_2xo5r")
+
+[node name="Environment" type="WorldEnvironment" parent="." unique_id=1885314499]
+environment = ExtResource("2_1ioim")
+
+[node name="Sun" type="DirectionalLight3D" parent="." unique_id=1601577893]
+transform = Transform3D(0.90630776, 0.28278682, -0.3140666, 0, 0.7431448, 0.6691306, 0.42261827, -0.6064383, 0.6735179, 0, 0, 0)
+light_color = Color(1, 0.93, 0.82, 1)
+light_energy = 1.2
+shadow_enabled = true
+
+[node name="FillLight" type="OmniLight3D" parent="." unique_id=1767462731]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 3)
+light_color = Color(1, 0.8, 0.55, 1)
+light_energy = 1.4
+omni_range = 18.0
+
+[node name="Camera" type="Camera3D" parent="." unique_id=766944654]
+transform = Transform3D(1, 0, 0, 0, 0.9702957, 0.2419219, 0, -0.2419219, 0.9702957, 0, 5, 13.5)
+current = true
+fov = 42.0
+
+[node name="Set" type="Node3D" parent="." unique_id=1785274706]
+
+[node name="Floor1" type="Node3D" parent="Set" unique_id=934521109 instance=ExtResource("3_p2dkl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, 2)
+
+[node name="Floor2" type="Node3D" parent="Set" unique_id=1615524520 instance=ExtResource("3_p2dkl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 2)
+
+[node name="Floor3" type="Node3D" parent="Set" unique_id=795441316 instance=ExtResource("3_p2dkl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
+
+[node name="Floor4" type="Node3D" parent="Set" unique_id=1590840363 instance=ExtResource("3_p2dkl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 2)
+
+[node name="Floor5" type="Node3D" parent="Set" unique_id=2131880432 instance=ExtResource("3_p2dkl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, 2)
+
+[node name="Floor6" type="Node3D" parent="Set" unique_id=1086354545 instance=ExtResource("5_4sh8l")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, -2)
+
+[node name="Floor7" type="Node3D" parent="Set" unique_id=1151839396 instance=ExtResource("5_4sh8l")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, -2)
+
+[node name="Floor8" type="Node3D" parent="Set" unique_id=2095973095 instance=ExtResource("5_4sh8l")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2)
+
+[node name="Floor9" type="Node3D" parent="Set" unique_id=1661394236 instance=ExtResource("5_4sh8l")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, -2)
+
+[node name="Floor10" type="Node3D" parent="Set" unique_id=715648779 instance=ExtResource("5_4sh8l")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -2)
+
+[node name="Floor11" type="Node3D" parent="Set" unique_id=1312510152 instance=ExtResource("3_p2dkl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, 6)
+
+[node name="Floor12" type="Node3D" parent="Set" unique_id=759638084 instance=ExtResource("3_p2dkl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 6)
+
+[node name="Floor13" type="Node3D" parent="Set" unique_id=1352200910 instance=ExtResource("3_p2dkl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6)
+
+[node name="Floor14" type="Node3D" parent="Set" unique_id=1607742798 instance=ExtResource("3_p2dkl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 6)
+
+[node name="Floor15" type="Node3D" parent="Set" unique_id=438517889 instance=ExtResource("3_p2dkl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, 6)
+
+[node name="Wall1" type="Node3D" parent="Set" unique_id=266995099 instance=ExtResource("7_cq4ny")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, -2)
+
+[node name="WallUp1" type="Node3D" parent="Set" unique_id=470158913 instance=ExtResource("9_160lv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 5.17, -2)
+
+[node name="Wall2" type="Node3D" parent="Set" unique_id=644458095 instance=ExtResource("11_i64ey")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, -2)
+
+[node name="WallUp2" type="Node3D" parent="Set" unique_id=858715337 instance=ExtResource("9_160lv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 5.17, -2)
+
+[node name="Wall3" type="Node3D" parent="Set" unique_id=1933170057 instance=ExtResource("9_160lv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2)
+
+[node name="WallUp3" type="Node3D" parent="Set" unique_id=1273657929 instance=ExtResource("9_160lv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.17, -2)
+
+[node name="Wall4" type="Node3D" parent="Set" unique_id=1007983272 instance=ExtResource("11_i64ey")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, -2)
+
+[node name="WallUp4" type="Node3D" parent="Set" unique_id=2134408383 instance=ExtResource("9_160lv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 5.17, -2)
+
+[node name="Wall5" type="Node3D" parent="Set" unique_id=1777588807 instance=ExtResource("7_cq4ny")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -2)
+
+[node name="WallUp5" type="Node3D" parent="Set" unique_id=670784171 instance=ExtResource("9_160lv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 5.17, -2)
+
+[node name="Counter1" type="Node3D" parent="Set" unique_id=1589268903 instance=ExtResource("13_yywbf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, 0)
+
+[node name="Counter2" type="Node3D" parent="Set" unique_id=1253393363 instance=ExtResource("15_bqps1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 0)
+
+[node name="Counter3" type="Node3D" parent="Set" unique_id=938615066 instance=ExtResource("17_7cwmb")]
+
+[node name="Counter4" type="Node3D" parent="Set" unique_id=667248232 instance=ExtResource("19_wvhde")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 0)
+
+[node name="Counter5" type="Node3D" parent="Set" unique_id=654876158 instance=ExtResource("13_yywbf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, 0)
+
+[node name="Stool1" type="Node3D" parent="Set" unique_id=1527964317 instance=ExtResource("21_7w6dp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, 2.3)
+
+[node name="Stool2" type="Node3D" parent="Set" unique_id=1852871509 instance=ExtResource("21_7w6dp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 2.3)
+
+[node name="Stool3" type="Node3D" parent="Set" unique_id=724738488 instance=ExtResource("21_7w6dp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 2.3)
+
+[node name="Stool4" type="Node3D" parent="Set" unique_id=5478754 instance=ExtResource("21_7w6dp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 2.3)
+
+[node name="Sign" type="Node3D" parent="Set" unique_id=714148110 instance=ExtResource("23_44bmx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.4, -3.55)
+
+[node name="LanternL" type="Node3D" parent="Set" unique_id=419737867 instance=ExtResource("25_xolo8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 4.2, 4)
+
+[node name="LanternR" type="Node3D" parent="Set" unique_id=514174036 instance=ExtResource("25_xolo8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 4.2, 4)
+
+[node name="Dish1" type="Node3D" parent="Set" unique_id=559976288 instance=ExtResource("27_x517k")]
+transform = Transform3D(1.3, 0, 0, 0, 1.3, 0, 0, 0, 1.3, -5, 1.92, 0.5)
+
+[node name="Dish2" type="Node3D" parent="Set" unique_id=471296398 instance=ExtResource("29_n14b8")]
+transform = Transform3D(1.3, 0, 0, 0, 1.3, 0, 0, 0, 1.3, -1, 1.92, 0.5)
+
+[node name="Dish3" type="Node3D" parent="Set" unique_id=1694995971 instance=ExtResource("31_o20cc")]
+transform = Transform3D(1.3, 0, 0, 0, 1.3, 0, 0, 0, 1.3, 1.2, 1.92, 0.5)
+
+[node name="Dish4" type="Node3D" parent="Set" unique_id=612026105 instance=ExtResource("33_gx46n")]
+transform = Transform3D(1.3, 0, 0, 0, 1.3, 0, 0, 0, 1.3, 5, 1.92, 0.5)
+
+[node name="Cast" type="Node3D" parent="." unique_id=1533118346]
+
+[node name="Chef" type="Node3D" parent="Cast" unique_id=793607680 instance=ExtResource("35_lw5p8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, -1.9)
+
+[node name="Guest1" type="Node3D" parent="Cast" unique_id=2084726202 instance=ExtResource("37_268cr")]
+transform = Transform3D(-0.7, 0, -6.119594e-08, 0, 0.7, 0, 6.119594e-08, 0, -0.7, -6, 0.55, 2.3)
+
+[node name="Guest2" type="Node3D" parent="Cast" unique_id=417809862 instance=ExtResource("39_2e5b7")]
+transform = Transform3D(-0.7, 0, -6.119594e-08, 0, 0.7, 0, 6.119594e-08, 0, -0.7, -2, 0.55, 2.3)
+
+[node name="Guest3" type="Node3D" parent="Cast" unique_id=1764864049 instance=ExtResource("41_6iwwg")]
+transform = Transform3D(-0.7, 0, -6.119594e-08, 0, 0.7, 0, 6.119594e-08, 0, -0.7, 2, 0.55, 2.3)
+
+[node name="Guest4" type="Node3D" parent="Cast" unique_id=876706811 instance=ExtResource("43_wlgjn")]
+transform = Transform3D(-0.7, 0, -6.119594e-08, 0, 0.7, 0, 6.119594e-08, 0, -0.7, 6, 0.55, 2.3)
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=489052590]
+
+[node name="Title" type="Label" parent="UI" unique_id=1181932519]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -800.0
+offset_top = 80.0
+offset_right = 800.0
+offset_bottom = 230.0
+text = "Thanks for playing!"
+horizontal_alignment = 1
+
+[node name="Stats" type="Label" parent="UI" unique_id=1184575229]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -700.0
+offset_top = 240.0
+offset_right = 700.0
+offset_bottom = 360.0
+horizontal_alignment = 1
+
+[node name="Back" type="Button" parent="UI" unique_id=1589989677]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -260.0
+offset_top = -200.0
+offset_right = 260.0
+offset_bottom = -90.0
+text = "Back to days"

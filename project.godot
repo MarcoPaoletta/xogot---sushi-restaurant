@@ -65,7 +65,7 @@ project/editorState=[{
 "column": 0,
 "current": true,
 "line": 0,
-"path": "gdscript://-9223370777238172719.gd",
+"path": "res://scripts/ui/day_card.gd",
 "transient": true,
 "type": "file"
 }]

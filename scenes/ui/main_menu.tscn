@@ -1,0 +1,273 @@
+[gd_scene format=3 uid="uid://cvnajf1j0f54j"]
+
+[ext_resource type="Script" uid="uid://pudgupf1s02w" path="res://scripts/ui/main_menu.gd" id="1_6gmx2"]
+[ext_resource type="Environment" uid="uid://blid6jaedvgd5" path="res://env/restaurant.tres" id="2_3g7do"]
+[ext_resource type="PackedScene" uid="uid://dpsg8t2h2reg6" path="res://assets/Sushi Restaurant Kit - May 2023/Environment/glTF/Floor_Wood.gltf" id="3_ojeks"]
+[ext_resource type="PackedScene" uid="uid://d0ucsif5jpbqy" path="res://assets/Sushi Restaurant Kit - May 2023/Environment/glTF/Floor_Kitchen1.gltf" id="5_0jeo2"]
+[ext_resource type="PackedScene" uid="uid://ivqneqfer7y" path="res://assets/Sushi Restaurant Kit - May 2023/Environment/glTF/Wall_Shelves.gltf" id="7_71yxc"]
+[ext_resource type="PackedScene" uid="uid://uo8oawhwxen4" path="res://assets/Sushi Restaurant Kit - May 2023/Environment/glTF/Wall_Shoji.gltf" id="9_85es6"]
+[ext_resource type="PackedScene" uid="uid://cn205xc3jlin1" path="res://assets/Sushi Restaurant Kit - May 2023/Environment/glTF/Wall_Normal.gltf" id="11_e2s44"]
+[ext_resource type="PackedScene" uid="uid://junlv0na83ch" path="res://assets/Sushi Restaurant Kit - May 2023/Environment/glTF/Environment_Counter_Drawers.gltf" id="13_h8y44"]
+[ext_resource type="PackedScene" uid="uid://dww4lbt60mefo" path="res://assets/Sushi Restaurant Kit - May 2023/Environment/glTF/Environment_Counter_Straight_2.gltf" id="15_62iit"]
+[ext_resource type="PackedScene" uid="uid://bqynoawhh2e7q" path="res://assets/Sushi Restaurant Kit - May 2023/Environment/glTF/Environment_Counter_Doors.gltf" id="17_s2x4s"]
+[ext_resource type="PackedScene" uid="uid://b1q1njk0s3ltj" path="res://assets/Sushi Restaurant Kit - May 2023/Environment/glTF/Environment_Stool.gltf" id="19_f0cbm"]
+[ext_resource type="PackedScene" uid="uid://cqi8koy4pefs0" path="res://assets/Sushi Restaurant Kit - May 2023/Characters/With Knife and Pan/glTF/Panda.gltf" id="21_0td5x"]
+[ext_resource type="PackedScene" uid="uid://drlwmefbeujlh" path="res://assets/Sushi Restaurant Kit - May 2023/Characters/Normal/glTF/Rabbit_Pink.gltf" id="23_jg1pe"]
+[ext_resource type="PackedScene" uid="uid://bygfc6i85k5yi" path="res://assets/Sushi Restaurant Kit - May 2023/Characters/Normal/glTF/Rabbit_Cyan.gltf" id="25_jsak6"]
+[ext_resource type="PackedScene" uid="uid://cwbfy1jl1jlni" path="res://assets/Sushi Restaurant Kit - May 2023/Environment/glTF/Environment_Counter_Straight.gltf" id="27_qqxfm"]
+[ext_resource type="PackedScene" uid="uid://ckixbp7hc3cv5" path="res://assets/Sushi Restaurant Kit - May 2023/Food/glTF/Food_SalmonNigiri.gltf" id="27_sqcof"]
+[ext_resource type="PackedScene" uid="uid://dou8vm4jvgwfs" path="res://assets/Sushi Restaurant Kit - May 2023/Environment/glTF/Environment_Counter_Sink.gltf" id="28_ktljq"]
+[ext_resource type="PackedScene" uid="uid://cvy6fvlpxv60l" path="res://assets/Sushi Restaurant Kit - May 2023/Food/glTF/Food_Ramen.gltf" id="29_fv10w"]
+[ext_resource type="PackedScene" uid="uid://dnpi0gqf7oild" path="res://assets/Sushi Restaurant Kit - May 2023/Food/glTF/Food_Gyoza.gltf" id="31_2gcuk"]
+[ext_resource type="PackedScene" uid="uid://d18req07t4fsr" path="res://assets/Sushi Restaurant Kit - May 2023/Food/glTF/Food_Dango.gltf" id="33_0e3hr"]
+[ext_resource type="PackedScene" uid="uid://bdqnhx5on6c0d" path="res://assets/Sushi Restaurant Kit - May 2023/Food/glTF/Food_MaguroNigiri.gltf" id="35_08h23"]
+[ext_resource type="PackedScene" uid="uid://itrw0tif1hjl" path="res://assets/Sushi Restaurant Kit - May 2023/Environment/glTF/Environment_Oven.gltf" id="37_o8fdj"]
+[ext_resource type="PackedScene" uid="uid://5re35i02sqxq" path="res://assets/Sushi Restaurant Kit - May 2023/Environment/glTF/Environment_Pot_1_Filled.gltf" id="39_bgn8o"]
+[ext_resource type="PackedScene" uid="uid://cvrwluljupn61" path="res://assets/Sushi Restaurant Kit - May 2023/Environment/glTF/Environment_CanFridge.gltf" id="41_e4x2y"]
+[ext_resource type="PackedScene" uid="uid://b0ayutkhosg3h" path="res://assets/Sushi Restaurant Kit - May 2023/Decoration/glTF/Decoration_Sign.gltf" id="43_mwe6l"]
+[ext_resource type="PackedScene" uid="uid://ma4tx3k0mbpc" path="res://assets/Sushi Restaurant Kit - May 2023/Decoration/glTF/Decoration_Light.gltf" id="45_ge5uh"]
+[ext_resource type="PackedScene" uid="uid://bqujqpts4fwsn" path="res://assets/Sushi Restaurant Kit - May 2023/Decoration/glTF/Decoration_Bamboo.gltf" id="47_8sy0k"]
+[ext_resource type="PackedScene" uid="uid://bsl7mdey3mxrt" path="res://assets/Sushi Restaurant Kit - May 2023/Decoration/glTF/Decoration_SakuraFlower.gltf" id="49_sarji"]
+
+[node name="MainMenu" type="Node3D" unique_id=1522779841]
+script = ExtResource("1_6gmx2")
+
+[node name="Environment" type="WorldEnvironment" parent="." unique_id=1087529193]
+environment = ExtResource("2_3g7do")
+
+[node name="Sun" type="DirectionalLight3D" parent="." unique_id=62919295]
+transform = Transform3D(0.90630776, 0.28278682, -0.3140666, 0, 0.7431448, 0.6691306, 0.42261827, -0.6064383, 0.6735179, 0, 0, 0)
+light_color = Color(1, 0.93, 0.82, 1)
+light_energy = 1.2
+shadow_enabled = true
+
+[node name="FillLight" type="OmniLight3D" parent="." unique_id=1177156674]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 3)
+light_color = Color(1, 0.8, 0.55, 1)
+light_energy = 1.4
+omni_range = 16.0
+
+[node name="Camera" type="Camera3D" parent="." unique_id=1939192491]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, 4.2, 11.5)
+current = true
+fov = 42.0
+
+[node name="Diorama" type="Node3D" parent="." unique_id=2009910432]
+
+[node name="Floor1" type="Node3D" parent="Diorama" unique_id=934521109 instance=ExtResource("3_ojeks")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 2)
+
+[node name="Floor2" type="Node3D" parent="Diorama" unique_id=1960598459 instance=ExtResource("3_ojeks")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
+
+[node name="Floor3" type="Node3D" parent="Diorama" unique_id=1652690654 instance=ExtResource("3_ojeks")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 2)
+
+[node name="Floor4" type="Node3D" parent="Diorama" unique_id=1086354545 instance=ExtResource("5_0jeo2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, -2)
+
+[node name="Floor5" type="Node3D" parent="Diorama" unique_id=1460722874 instance=ExtResource("5_0jeo2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2)
+
+[node name="Floor6" type="Node3D" parent="Diorama" unique_id=1857443526 instance=ExtResource("5_0jeo2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, -2)
+
+[node name="Floor7" type="Node3D" parent="Diorama" unique_id=1436159898 instance=ExtResource("3_ojeks")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 6)
+
+[node name="Floor8" type="Node3D" parent="Diorama" unique_id=939996831 instance=ExtResource("3_ojeks")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6)
+
+[node name="Floor9" type="Node3D" parent="Diorama" unique_id=1360564277 instance=ExtResource("3_ojeks")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 6)
+
+[node name="Wall1" type="Node3D" parent="Diorama" unique_id=266995099 instance=ExtResource("7_71yxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, -2)
+
+[node name="WallUp1" type="Node3D" parent="Diorama" unique_id=470158913 instance=ExtResource("9_85es6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 5.17, -2)
+
+[node name="Wall2" type="Node3D" parent="Diorama" unique_id=64552853 instance=ExtResource("9_85es6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2)
+
+[node name="WallUp2" type="Node3D" parent="Diorama" unique_id=1553606215 instance=ExtResource("9_85es6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.17, -2)
+
+[node name="Wall3" type="Node3D" parent="Diorama" unique_id=644458095 instance=ExtResource("11_e2s44")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, -2)
+
+[node name="WallUp3" type="Node3D" parent="Diorama" unique_id=876392414 instance=ExtResource("9_85es6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 5.17, -2)
+
+[node name="Counter1" type="Node3D" parent="Diorama" unique_id=1253393363 instance=ExtResource("13_h8y44")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 0)
+
+[node name="Counter2" type="Node3D" parent="Diorama" unique_id=938615066 instance=ExtResource("15_62iit")]
+
+[node name="Counter3" type="Node3D" parent="Diorama" unique_id=667248232 instance=ExtResource("17_s2x4s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 0)
+
+[node name="Stool1" type="Node3D" parent="Diorama" unique_id=1527964317 instance=ExtResource("19_f0cbm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 2.3)
+
+[node name="Stool2" type="Node3D" parent="Diorama" unique_id=109522773 instance=ExtResource("19_f0cbm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 2.3)
+
+[node name="Chef" type="Node3D" parent="Diorama" unique_id=793607680 instance=ExtResource("21_0td5x")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, -1.9)
+
+[node name="Guest1" type="Node3D" parent="Diorama" unique_id=2084726202 instance=ExtResource("23_jg1pe")]
+transform = Transform3D(-0.7, 0, -6.119594e-08, 0, 0.7, 0, 6.119594e-08, 0, -0.7, -2, 0.55, 2.3)
+
+[node name="Guest2" type="Node3D" parent="Diorama" unique_id=417809862 instance=ExtResource("25_jsak6")]
+transform = Transform3D(-0.7, 0, -6.119594e-08, 0, 0.7, 0, 6.119594e-08, 0, -0.7, 2, 0.55, 2.3)
+
+[node name="Dish1" type="Node3D" parent="Diorama" unique_id=559976288 instance=ExtResource("27_sqcof")]
+transform = Transform3D(1.2216004, 0, 0.44462615, 0, 1.3, 0, -0.44462615, 0, 1.2216004, -2.2, 1.92, 0.6)
+
+[node name="Dish2" type="Node3D" parent="Diorama" unique_id=471296398 instance=ExtResource("29_fv10w")]
+transform = Transform3D(1.3, 0, 0, 0, 1.3, 0, 0, 0, 1.3, 0.2, 1.92, 0.6)
+
+[node name="Dish3" type="Node3D" parent="Diorama" unique_id=1694995971 instance=ExtResource("31_2gcuk")]
+transform = Transform3D(1.1258329, 0, -0.65, 0, 1.3, 0, 0.65, 0, 1.1258329, 2.4, 1.92, 0.5)
+
+[node name="Dish4" type="Node3D" parent="Diorama" unique_id=148270430 instance=ExtResource("33_0e3hr")]
+transform = Transform3D(1.28025, 0, 0.22574262, 0, 1.3, 0, -0.22574262, 0, 1.28025, 3.6, 1.92, 0.4)
+
+[node name="Dish5" type="Node3D" parent="Diorama" unique_id=1783776185 instance=ExtResource("35_08h23")]
+transform = Transform3D(0.8356239, 0, 0.9958577, 0, 1.3, 0, -0.9958577, 0, 0.8356239, -3.4, 1.92, 0.6)
+
+[node name="Oven" type="Node3D" parent="Diorama" unique_id=483297512 instance=ExtResource("37_o8fdj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.2, 0, -3.1)
+
+[node name="Pot" type="Node3D" parent="Diorama" unique_id=1549319651 instance=ExtResource("39_bgn8o")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.2, 2.23, -3.1)
+
+[node name="Fridge" type="Node3D" parent="Diorama" unique_id=2048866834 instance=ExtResource("41_e4x2y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.5, 0, -3.1)
+
+[node name="Sign" type="Node3D" parent="Diorama" unique_id=714148110 instance=ExtResource("43_mwe6l")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.4, -3.55)
+
+[node name="Lantern" type="Node3D" parent="Diorama" unique_id=419737867 instance=ExtResource("45_ge5uh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 4.2, 4)
+
+[node name="Bamboo" type="Node3D" parent="Diorama" unique_id=712238921 instance=ExtResource("47_8sy0k")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.5, 1.92, -0.3)
+
+[node name="Sakura" type="Node3D" parent="Diorama" unique_id=1907879340 instance=ExtResource("49_sarji")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.4, 2.3, -0.4)
+
+[node name="FloorX1" type="Node3D" parent="Diorama" unique_id=1688566851 instance=ExtResource("3_ojeks")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, 2)
+
+[node name="FloorX2" type="Node3D" parent="Diorama" unique_id=1007044813 instance=ExtResource("5_0jeo2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, -2)
+
+[node name="FloorX3" type="Node3D" parent="Diorama" unique_id=256564278 instance=ExtResource("3_ojeks")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, 6)
+
+[node name="FloorX4" type="Node3D" parent="Diorama" unique_id=1858711096 instance=ExtResource("3_ojeks")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, 2)
+
+[node name="FloorX5" type="Node3D" parent="Diorama" unique_id=1884477437 instance=ExtResource("5_0jeo2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -2)
+
+[node name="FloorX6" type="Node3D" parent="Diorama" unique_id=756548463 instance=ExtResource("3_ojeks")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, 6)
+
+[node name="WallX1" type="Node3D" parent="Diorama" unique_id=795439370 instance=ExtResource("9_85es6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, -2)
+
+[node name="WallXUp1" type="Node3D" parent="Diorama" unique_id=1628698654 instance=ExtResource("9_85es6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 5.17, -2)
+
+[node name="WallX2" type="Node3D" parent="Diorama" unique_id=1590132686 instance=ExtResource("9_85es6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -2)
+
+[node name="WallXUp2" type="Node3D" parent="Diorama" unique_id=1665095079 instance=ExtResource("9_85es6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 5.17, -2)
+
+[node name="WallL1" type="Node3D" parent="Diorama" unique_id=68412230 instance=ExtResource("9_85es6")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -10, 0, 6)
+
+[node name="WallLUp1" type="Node3D" parent="Diorama" unique_id=149080826 instance=ExtResource("9_85es6")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -10, 5.17, 6)
+
+[node name="WallL2" type="Node3D" parent="Diorama" unique_id=361389545 instance=ExtResource("9_85es6")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -10, 0, 2)
+
+[node name="WallLUp2" type="Node3D" parent="Diorama" unique_id=1309398129 instance=ExtResource("9_85es6")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -10, 5.17, 2)
+
+[node name="WallL3" type="Node3D" parent="Diorama" unique_id=264395778 instance=ExtResource("9_85es6")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -10, 0, -2)
+
+[node name="WallLUp3" type="Node3D" parent="Diorama" unique_id=215806225 instance=ExtResource("9_85es6")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -10, 5.17, -2)
+
+[node name="CounterL" type="Node3D" parent="Diorama" unique_id=1589268903 instance=ExtResource("27_qqxfm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, 0)
+
+[node name="CounterR" type="Node3D" parent="Diorama" unique_id=471019331 instance=ExtResource("28_ktljq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, 0)
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=1111466819]
+
+[node name="Title" type="Label" parent="UI" unique_id=981778687]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -700.0
+offset_top = 90.0
+offset_right = 700.0
+offset_bottom = 290.0
+text = "SUSHI"
+horizontal_alignment = 1
+
+[node name="Subtitle" type="Label" parent="UI" unique_id=121385367]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -800.0
+offset_top = -430.0
+offset_right = 800.0
+offset_bottom = -370.0
+text = "tap the ingredients  ·  serve the rabbits  ·  keep the streak"
+horizontal_alignment = 1
+
+[node name="Play" type="Button" parent="UI" unique_id=1248667995]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -210.0
+offset_top = -330.0
+offset_right = 210.0
+offset_bottom = -200.0
+text = "Play"
+
+[node name="Stats" type="Label" parent="UI" unique_id=1016622287]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 50.0
+offset_top = -110.0
+offset_right = 900.0
+offset_bottom = -50.0
+
+[node name="Credit" type="Label" parent="UI" unique_id=809072556]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -900.0
+offset_top = -100.0
+offset_right = -50.0
+offset_bottom = -50.0
+text = "Models by Quaternius (CC0)  ·  quaternius.com"
+horizontal_alignment = 2

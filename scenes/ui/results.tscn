@@ -1,0 +1,85 @@
+[gd_scene format=3 uid="uid://bwlgi5l1e11xb"]
+
+[ext_resource type="Script" uid="uid://qa0huq2anqrx" path="res://scripts/ui/results.gd" id="1_c7ncx"]
+[ext_resource type="Script" uid="uid://djeqdf7vw2122" path="res://scripts/ui/icons.gd" id="2_qac8e"]
+
+[node name="Results" type="Control" unique_id=1438467415]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_c7ncx")
+
+[node name="Background" type="ColorRect" parent="." unique_id=1152382931]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color(0.16, 0.1, 0.08, 1)
+
+[node name="Panel" type="PanelContainer" parent="." unique_id=133838164]
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -600.0
+offset_top = -360.0
+offset_right = 600.0
+offset_bottom = 360.0
+
+[node name="VBox" type="VBoxContainer" parent="Panel" unique_id=871971040]
+layout_mode = 2
+theme_override_constants/separation = 28
+alignment = 1
+
+[node name="Title" type="Label" parent="Panel/VBox" unique_id=724052782]
+layout_mode = 2
+text = "Day complete!"
+horizontal_alignment = 1
+
+[node name="Stars" type="HBoxContainer" parent="Panel/VBox" unique_id=940797504]
+layout_mode = 2
+theme_override_constants/separation = 40
+alignment = 1
+
+[node name="S1" type="Control" parent="Panel/VBox/Stars" unique_id=641098150]
+custom_minimum_size = Vector2(130, 130)
+layout_mode = 2
+mouse_filter = 2
+script = ExtResource("2_qac8e")
+
+[node name="S2" type="Control" parent="Panel/VBox/Stars" unique_id=879840520]
+custom_minimum_size = Vector2(130, 130)
+layout_mode = 2
+mouse_filter = 2
+script = ExtResource("2_qac8e")
+
+[node name="S3" type="Control" parent="Panel/VBox/Stars" unique_id=1053509446]
+custom_minimum_size = Vector2(130, 130)
+layout_mode = 2
+mouse_filter = 2
+script = ExtResource("2_qac8e")
+
+[node name="Stats" type="Label" parent="Panel/VBox" unique_id=1408564435]
+layout_mode = 2
+horizontal_alignment = 1
+
+[node name="Buttons" type="HBoxContainer" parent="Panel/VBox" unique_id=1164140761]
+layout_mode = 2
+theme_override_constants/separation = 24
+alignment = 1
+
+[node name="Next" type="Button" parent="Panel/VBox/Buttons" unique_id=1947126178]
+layout_mode = 2
+text = "Next day"
+
+[node name="Replay" type="Button" parent="Panel/VBox/Buttons" unique_id=1540257588]
+layout_mode = 2
+text = "Replay"
+
+[node name="Days" type="Button" parent="Panel/VBox/Buttons" unique_id=768745070]
+layout_mode = 2
+text = "Days"

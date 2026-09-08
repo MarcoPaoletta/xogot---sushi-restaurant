@@ -5,7 +5,7 @@ extends Button
 @onready var name_label: Label = $Layout/NameLabel
 @onready var stars: HBoxContainer = $Layout/Stars
 @onready var best: Label = $Layout/Best
-@onready var lock: Control = $Layout/Lock
+@onready var lock: Control = $Layout/LockBox/Lock
 
 
 func setup(index: int) -> void:
