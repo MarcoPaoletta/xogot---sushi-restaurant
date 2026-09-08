@@ -1,8 +1,11 @@
 extends Node3D
-## Day controller: wires stations, plate, chef, customers and HUD together (GDD sections 6 and 7).
+## Day controller (v2): the chef walks along the counter and presses the action button next to
+## stations, the pass, customers and the sink. Nothing in the world is tapped any more.
 
 const CUSTOMER := preload("res://scenes/actors/customer.tscn")
 const KIT_CHARS := "res://assets/Sushi Restaurant Kit - May 2023/Characters/Normal/glTF/"
+const REACH := 1.35          # metres in X the chef can reach a station or a customer from
+const REACH_WIDE := 1.7      # the pass and the sink are bigger
 
 var day_index := 0
 var day: Dictionary = {}
@@ -17,10 +20,12 @@ var time := 0.0
 var running := false
 var finished := false
 var _tutorial_step := 0
+var _target: Node = null
+var _target_kind := ""
 
 @onready var stations: Node3D = $Stations
 @onready var plate: Node3D = $Plate
-@onready var sink_target: Area3D = $Sink/TapTarget
+@onready var sink: Node3D = $Sink
 @onready var chef: Node3D = $Chef
 @onready var seats: Node3D = $Seats
 @onready var door: Marker3D = $Door
@@ -28,18 +33,16 @@ var _tutorial_step := 0
 @onready var spawner: Node = $Spawner
 @onready var hud: CanvasLayer = $HUD
 @onready var camera: Camera3D = $Camera
+@onready var prompt: Label3D = $Prompt
 
 
 func _ready() -> void:
 	add_to_group("restaurant")
-	get_viewport().physics_object_picking = true
 	day_index = Game.current_day
 	day = Game.DAYS[day_index]
 	for s in stations.get_children():
-		s.tapped.connect(_on_station_tapped)
 		s.set_unlocked(day["stations"].has(s.ingredient))
-	plate.changed.connect(_on_plate_changed)
-	plate.tapped.connect(_on_plate_tapped)
+	chef.interact_requested.connect(_on_interact)
 	spawner.spawn_requested.connect(_spawn_customer)
 	spawner.build(day, day_index)
 	hud.setup(self)
@@ -47,162 +50,192 @@ func _ready() -> void:
 	hud.set_earnings(0, 0)
 	hud.set_streak(0)
 	hud.set_strikes(0)
+	prompt.visible = false
 	Audio.play_music("day", 0.8, 1.0 + 0.03 * maxi(day_index - 2, 0))
 	_intro()
 
 
 func _intro() -> void:
+	chef.control_enabled = false
 	var target_pos := camera.position
 	camera.position = target_pos + Vector3(0, 1.6, 4.5)
 	var t := create_tween()
 	t.tween_property(camera, "position", target_pos, 1.2).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
-	chef.react("Wave")
+	chef.react("Wave", 1.2)
 	Audio.play("wave", 1.0, -4.0)
 	hud.show_title("Day %d · %s" % [day_index + 1, day["name"]])
 	await t.finished
 	running = true
+	chef.control_enabled = true
 	spawner.start()
 	if not Game.tutorial_done() and day_index == 0:
-		hud.flash_message("Read the dish over the customer's head", 3.0)
+		hud.flash_message("Walk with ◀ ▶ — grab ingredients from the back counter", 3.5)
 
 
 func _process(delta: float) -> void:
 	if running:
 		time += delta
+	_update_target()
 
 
-## One tap = one ray from the camera against the tap targets (layer 8). Works for mouse, touch and injected input.
-## Every target along the ray is collected; stations win over the sink, the plate and customers, so a rabbit
-## sitting in front of a station never swallows the tap.
-func _unhandled_input(event: InputEvent) -> void:
-	if not FX.is_tap(event) or not running:
-		return
-	var pos: Vector2 = event.position
-	var from := camera.project_ray_origin(pos)
-	var to := from + camera.project_ray_normal(pos) * 200.0
-	var space := get_world_3d().direct_space_state
-	var exclude: Array[RID] = []
-	var hits: Array = []
-	for i in 6:
-		var q := PhysicsRayQueryParameters3D.create(from, to, 128)
-		q.collide_with_areas = true
-		q.collide_with_bodies = false
-		q.exclude = exclude
-		var hit := space.intersect_ray(q)
-		if hit.is_empty():
-			break
-		hits.append(hit["collider"])
-		exclude.append(hit["rid"])
-	if hits.is_empty():
-		return
-	get_viewport().set_input_as_handled()
+# --- targets --------------------------------------------------------------------------
+
+## Work out what the action button would do from where the chef stands, and show it.
+func _update_target() -> void:
+	var x: float = chef.global_position.x
 	var best: Node = null
-	var best_rank := 99
-	for area in hits:
-		var rank := 3
-		var owner_node: Node = area.get_parent()
-		if area == sink_target:
-			rank = 1
-		elif owner_node is Node3D and owner_node.get_parent() == stations:
-			rank = 0
-		elif owner_node == plate:
-			rank = 2
-		elif owner_node.has_method("on_tap") and "state" in owner_node and owner_node.state != owner_node.State.WAITING:
-			rank = 5   # a rabbit walking past never steals a tap from a seated one
-		if rank < best_rank:
-			best_rank = rank
-			best = area
-	if best == sink_target:
-		_on_sink_tapped()
-		return
-	var target := best.get_parent()
-	if target and target.has_method("on_tap"):
-		target.on_tap()
-
-
-func _on_station_tapped(ingredient: String) -> void:
-	if not running:
-		return
-	var station := _station(ingredient)
-	var result: String = plate.add(ingredient)
-	if result == "added":
-		chef.chop()
-		if station:
-			station.bounce()
-		_tutorial("added")
-	else:
-		if station:
-			station.refuse()
-		if result == "ruined" or result == "full":
-			_tutorial("stuck")
-
-
-func _station(ingredient: String) -> Node:
+	var best_kind := ""
+	var best_d := 99.0
+	var carrying_dish: bool = chef.held_dish != ""
 	for s in stations.get_children():
-		if s.ingredient == ingredient:
-			return s
-	return null
-
-
-func _on_plate_changed(_ingredients: Array, dish: String) -> void:
-	if dish != "":
-		_tutorial("complete")
-
-
-func _on_plate_tapped() -> void:
-	if plate.dish == "" and plate.ingredients.is_empty():
-		hud.flash_message("Tap an ingredient to start a dish")
-
-
-func _on_sink_tapped() -> void:
-	if plate.ingredients.is_empty() and plate.dish == "":
+		if not s.unlocked:
+			continue
+		var d: float = absf(s.global_position.x - x)
+		if d < REACH and d < best_d:
+			best = s
+			best_kind = "station"
+			best_d = d
+	var dp: float = absf(plate.global_position.x - x)
+	if dp < REACH_WIDE and dp < best_d and not chef.held.is_empty():
+		best = plate
+		best_kind = "mix"
+		best_d = dp
+	var ds: float = absf(sink.global_position.x - x)
+	if ds < REACH_WIDE and ds < best_d and not chef.is_empty():
+		best = sink
+		best_kind = "bin"
+		best_d = ds
+	for c in customers.get_children():
+		if c.state != c.State.WAITING:
+			continue
+		var dc: float = absf(c.global_position.x - x)
+		if dc < REACH and dc < best_d and carrying_dish:
+			best = c
+			best_kind = "serve"
+			best_d = dc
+	if best != _target:
+		if _target and is_instance_valid(_target) and _target.has_method("set_highlight"):
+			_target.set_highlight(false)
+		_target = best
+		_target_kind = best_kind
+		if _target and _target.has_method("set_highlight"):
+			_target.set_highlight(true)
+	if _target == null or not running:
+		prompt.visible = false
 		return
-	Audio.play("splash", randf_range(0.95, 1.05), -6.0)
-	FX.burst(get_tree(), sink_target.global_position + Vector3.UP * 0.5, Color(0.6, 0.8, 1.0), 20, 1.0)
-	if plate.ruined:
-		chef.react("No")
-	plate.clear()
+	var text := ""
+	match _target_kind:
+		"station": text = "Grab %s" % Recipes.INGREDIENTS[_target.ingredient]["name"]
+		"mix": text = "Mix"
+		"bin": text = "Bin it"
+		"serve": text = "Serve %s" % Recipes.dish_name(chef.held_dish)
+	prompt.text = text
+	var above: Vector3 = _target.global_position + Vector3(0, 1.5, 0)
+	if _target_kind == "serve":
+		above = _target.global_position + Vector3(0, 4.4, 0)
+	elif _target_kind == "bin":
+		above = _target.global_position + Vector3(0, 1.9, 0)
+	if not prompt.visible:
+		prompt.global_position = above
+		prompt.visible = true
+	else:
+		prompt.global_position = prompt.global_position.lerp(above, 0.35)
 
 
-func _on_customer_tapped(c: Node) -> void:
+func _on_interact() -> void:
 	if not running:
 		return
-	if plate.dish == "":
-		c.remind()
-		if plate.ingredients.is_empty():
-			hud.flash_message("Build a dish first")
+	if _target == null:
+		if chef.is_empty():
+			hud.flash_message("Walk to an ingredient on the back counter")
+		elif chef.held_dish != "":
+			hud.flash_message("Bring the dish to a waiting rabbit")
 		else:
-			hud.flash_message("The dish is not finished")
+			hud.flash_message("Mix the stack at the pass in the middle")
 		return
-	var dish: String = plate.take()
+	match _target_kind:
+		"station": _grab(_target)
+		"mix": _mix()
+		"bin": _bin()
+		"serve": _serve(_target)
+
+
+# --- actions --------------------------------------------------------------------------
+
+func _grab(station: Node) -> void:
+	var result: String = chef.add_ingredient(station.ingredient)
+	match result:
+		"added":
+			chef.chop()
+			station.bounce()
+			Audio.play_var("tap", 0.1, -4.0)
+			_tutorial("added")
+		"dish":
+			station.refuse()
+			hud.flash_message("Serve or bin the dish first")
+		"full":
+			station.refuse()
+			hud.flash_message("Hands full — mix it at the pass")
+			_tutorial("stuck")
+		"duplicate":
+			station.refuse()
+			hud.flash_message("Already holding that")
+		"ruined":
+			station.refuse()
+			hud.flash_message("That doesn't go with what you hold")
+			_tutorial("stuck")
+	_update_target()
+
+
+func _mix() -> void:
+	var dish: String = chef.mix()
+	if dish == "":
+		plate.fail_mix()
+		chef.react("No", 0.6)
+		hud.flash_message("Not a recipe yet — add a topping")
+		return
+	chef.chop()
+	plate.show_mix(dish)
+	hud.flash_message(Recipes.dish_name(dish) + "!")
+	_tutorial("complete")
+	_update_target()
+
+
+func _bin() -> void:
+	chef.drop_all()
+	Audio.play("splash", randf_range(0.95, 1.05), -6.0)
+	FX.burst(get_tree(), sink.global_position + Vector3.UP * 2.3, Color(0.6, 0.8, 1.0), 20, 1.0)
+	_update_target()
+
+
+func _serve(c: Node) -> void:
+	var dish: String = chef.take_dish()
 	_fly_dish(dish, c)
 	Audio.play("whoosh", 1.0, -8.0)
+	chef.react("Yes", 0.5)
+	_update_target()
 	await get_tree().create_timer(0.3).timeout
 	if not is_instance_valid(c):
 		return
 	var correct: bool = c.serve(dish)
-	if correct:
-		chef.react("Yes")
-	else:
-		chef.react("No")
+	if not correct:
+		chef.react("No", 0.7)
 		hud.flash_message("Wrong dish — they wanted %s" % Recipes.dish_name(c.order))
 
 
 func _fly_dish(dish: String, c: Node3D) -> void:
-	var info: Dictionary = Recipes.DISHES[dish]
-	var scene := Recipes.load_model(info["model"])
+	var scene := Recipes.load_model(Recipes.DISHES[dish]["model"])
 	if scene == null:
 		return
 	var m: Node3D = scene.instantiate()
 	add_child(m)
-	m.global_position = plate.global_position + Vector3.UP * 0.3
+	var start: Vector3 = chef.global_position + Vector3(0, 3.2, 0)
 	var target: Vector3 = c.global_position + Vector3.UP * 2.0
-	var mid := (m.global_position + target) / 2.0 + Vector3.UP * 1.4
+	var mid := (start + target) / 2.0 + Vector3.UP * 1.2
+	m.global_position = start
 	var t := create_tween()
 	t.tween_method(func(f: float):
-		var p := plate.global_position + Vector3.UP * 0.3
-		var q := p.lerp(mid, f).lerp(mid.lerp(target, f), f)
-		m.global_position = q
+		m.global_position = start.lerp(mid, f).lerp(mid.lerp(target, f), f)
 		m.rotation.y += 0.2, 0.0, 1.0, 0.35).set_trans(Tween.TRANS_SINE)
 	t.tween_callback(m.queue_free)
 
@@ -215,15 +248,14 @@ func _spawn_customer(orders: Array, seat_index: int) -> void:
 	var seat: Node3D = seats.get_child(seat_index)
 	var model_path: String = KIT_CHARS + spawner.model_for(spawner.spawned) + ".gltf"
 	c.setup(model_path, orders, float(day["patience"]), seat_index, seat.global_position, door.global_position)
-	c.tapped.connect(_on_customer_tapped)
 	c.served.connect(_on_customer_served)
 	c.left.connect(_on_customer_left)
 	customers.add_child(c)
 	if not Game.tutorial_done() and day_index == 0 and _tutorial_step == 0:
 		_tutorial_step = 1
-		await get_tree().create_timer(2.6).timeout
+		await get_tree().create_timer(3.0).timeout
 		if running and _tutorial_step == 1:
-			hud.flash_message("Tap Rice, then the topping you see", 3.0)
+			hud.flash_message("Read the dish over the rabbit, then grab Rice + its topping", 3.5)
 
 
 func _on_customer_served(c: Node, correct: bool, patience_left: float) -> void:
@@ -254,7 +286,7 @@ func _on_customer_left(c: Node, was_happy: bool) -> void:
 	spawner.free_seat(c.seat_index)
 	if was_happy:
 		happy += 1
-	if not was_happy:
+	else:
 		angry += 1
 		strikes += 1
 		streak = 0
@@ -263,7 +295,7 @@ func _on_customer_left(c: Node, was_happy: bool) -> void:
 		hud.damage_flash()
 		hud.flash_message("They left angry!")
 		Audio.play("strike")
-		chef.react("HitReact")
+		chef.react("HitReact", 0.8)
 		_shake_camera()
 	hud.set_day(day_index, day["name"], handled, int(day["customers"]))
 	if strikes >= 3:
@@ -287,6 +319,8 @@ func _finish(completed: bool) -> void:
 		return
 	finished = true
 	running = false
+	chef.control_enabled = false
+	prompt.visible = false
 	spawner.stop()
 	for c in customers.get_children():
 		if c.has_method("cancel") and c.state != c.State.LEAVING:
@@ -301,11 +335,11 @@ func _finish(completed: bool) -> void:
 			stars = 3
 	if completed:
 		Audio.play("fanfare")
-		chef.react("Wave")
+		chef.react("Wave", 2.5)
 		hud.show_title("Day complete!")
 	else:
 		Audio.play("closed")
-		chef.react("No")
+		chef.react("No", 2.5)
 		hud.show_title("Closed early")
 	Audio.duck_music(-8.0)
 	await get_tree().create_timer(2.2).timeout
@@ -316,21 +350,25 @@ func _finish(completed: bool) -> void:
 	})
 
 
-# --- tutorial (day 1 only, GDD section 11) -------------------------------------------
+# --- tutorial (day 1 only) -----------------------------------------------------------
 
 func _tutorial(event: String) -> void:
 	if Game.tutorial_done() or day_index != 0:
 		return
 	match event:
-		"complete":
+		"added":
 			if _tutorial_step < 2:
 				_tutorial_step = 2
-				hud.flash_message("Tap the rabbit to serve", 2.5)
-		"stuck":
+				hud.flash_message("Now walk to the pass in the middle and mix", 2.5)
+		"complete":
 			if _tutorial_step < 3:
 				_tutorial_step = 3
-				hud.flash_message("Tap the sink to start over", 2.5)
-		"served":
+				hud.flash_message("Carry it to the rabbit and serve", 2.5)
+		"stuck":
 			if _tutorial_step < 4:
 				_tutorial_step = 4
+				hud.flash_message("The sink on the right bins what you hold", 2.5)
+		"served":
+			if _tutorial_step < 5:
+				_tutorial_step = 5
 				hud.flash_message("Serve fast for tips — keep the streak going!", 2.5)

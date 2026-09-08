@@ -7,3 +7,6 @@
 script = ExtResource("1_050rn")
 
 [node name="Model" parent="." unique_id=793607680 instance=ExtResource("2_ok42n")]
+
+[node name="Hands" type="Node3D" parent="." unique_id=497785659]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.05, 0.25)

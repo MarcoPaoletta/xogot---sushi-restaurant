@@ -12,7 +12,7 @@ const WALK_SPEED := 3.0
 const LEAVE_SPEED := 3.0
 const ANGRY_SPEED := 4.0
 const MODEL_SCALE := 0.7
-const BUBBLE_HEIGHT := 3.4
+const BUBBLE_HEIGHT := 3.9
 
 var state := State.ENTERING
 var orders: Array = []            # remaining dish ids for this customer
@@ -245,9 +245,9 @@ func _play_once(clip: String, then: String) -> void:
 		_anim.play(then, 0.15)
 
 
-func on_tap() -> void:
-	if state == State.WAITING:
-		tapped.emit(self)
+func set_highlight(on: bool) -> void:
+	if bubble.visible:
+		bubble.scale = Vector3.ONE * (1.15 if on else 1.0)
 
 
 func remind() -> void:

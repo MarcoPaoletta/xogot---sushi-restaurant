@@ -192,3 +192,42 @@ text = "Music: On"
 [node name="Sound" type="Button" parent="PauseMenu/Panel/VBox/Toggles" unique_id=48835996]
 layout_mode = 2
 text = "Sound: On"
+
+[node name="Touch" type="Control" parent="." unique_id=1531728818]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+
+[node name="Left" type="Button" parent="Touch" unique_id=162804451]
+layout_mode = 0
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 50.0
+offset_top = -230.0
+offset_right = 250.0
+offset_bottom = -50.0
+text = "◀"
+
+[node name="Right" type="Button" parent="Touch" unique_id=17498065]
+layout_mode = 0
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 280.0
+offset_top = -230.0
+offset_right = 480.0
+offset_bottom = -50.0
+text = "▶"
+
+[node name="Act" type="Button" parent="Touch" unique_id=451266369]
+layout_mode = 0
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -470.0
+offset_top = -230.0
+offset_right = -50.0
+offset_bottom = -50.0
+text = "GRAB / MIX / SERVE"

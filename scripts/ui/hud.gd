@@ -14,6 +14,9 @@ var _target_earnings := 0
 @onready var title: Label = $Title
 @onready var screen_fx: ColorRect = $ScreenFX
 @onready var pause_menu: Control = $PauseMenu
+@onready var left_btn: Button = $Touch/Left
+@onready var right_btn: Button = $Touch/Right
+@onready var act_btn: Button = $Touch/Act
 
 
 func _ready() -> void:
@@ -31,6 +34,18 @@ func _ready() -> void:
 	pause_button.pressed.connect(_on_pause)
 	screen_fx.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	pause_menu.visible = false
+	for b in [left_btn, right_btn, act_btn]:
+		UiKit.style_button(b, Color(0.35, 0.25, 0.22, 0.85), 64)
+		b.focus_mode = Control.FOCUS_NONE
+	UiKit.style_button(act_btn, Color(0.86, 0.23, 0.2, 0.9), 44)
+	left_btn.button_down.connect(func(): TouchInput.left_held = true)
+	left_btn.button_up.connect(func(): TouchInput.left_held = false)
+	right_btn.button_down.connect(func(): TouchInput.right_held = true)
+	right_btn.button_up.connect(func(): TouchInput.right_held = false)
+	act_btn.button_down.connect(TouchInput.press_act)
+	act_btn.button_up.connect(TouchInput.release_act)
+	# On a Mac with a keyboard the on-screen buttons stay out of the way.
+	$Touch.visible = OS.get_name() in ["iOS", "Android"]
 
 
 func setup(restaurant: Node) -> void:
