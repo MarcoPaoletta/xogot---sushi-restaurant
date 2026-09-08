@@ -387,8 +387,8 @@ The game was built exactly along the build order in 12.2. These are the places w
 
 ### 15.1 Layout
 - A **back counter** runs along the kitchen wall at Z = −3.2: `Environment_Fridge` at X −10.9, then `Environment_Counter_Straight_2` (−6), `Environment_Counter_Drawers` (−2), `Environment_Counter_Straight` (2), `Environment_Counter_Doors` (6) and `Environment_Counter_Sink` (10). `Environment_ChukamanSteamer` and `Environment_Bottles` sit on the wall cabinet above it; `Environment_Oven` stands outside the wall at X 12.2 as dressing.
-- The **nine stations** sit on the back counter at Z −3.15, X −7.6, −5.7, −3.8, −1.9, 0, 1.9, 3.8, 5.7, 7.6 (Rice, Nori, Salmon, Tuna, Ebi, Tamago, Octopus, Cucumber, Sea urchin). The **sink** (bin) is the back counter's basin at X 10.
-- The **customer counter** at Z 0 is unchanged apart from losing its sink; the **pass** (`Environment_CuttingTable` + `Environment_Plate`) moves to the counter's left end at X −10, so it never shares an X with a station (the Ebi station is at X 0). Stools and seats are unchanged.
+- The **nine stations** sit on the back counter at Z −3.15, X −9.0, −7.2, −5.4, −3.6, −1.8, 1.8, 3.6, 5.4, 7.2 (Rice, Nori, Salmon, Tuna, Ebi, Tamago, Octopus, Cucumber, Sea urchin) — a 3.6 u gap at the centre keeps them out of the pass's reach. The **sink** (bin) is the back counter's basin at X 10.
+- The **customer counter** at Z 0 is unchanged apart from losing its sink; the **pass** (`Environment_CuttingTable` + `Environment_Plate`) stays at the counter centre, X 0; no station is within reach of it. Stools and seats are unchanged.
 - The **chef** walks in the corridor between the two counters at Z −1.65, X from −9.2 to 9.6, speed 7.5 u/s. Customers sit at Z 2.3, in front of everything the chef uses; the camera (0, 10.2, 17.0), pitch −27°, FOV 50° looks over their heads at the corridor and the back counter. Order bubbles float at Y 3.9 so they never cover the chef.
 
 ### 15.2 Controls
@@ -406,7 +406,7 @@ The on-screen buttons only exist on iOS/Android. A `Label3D` prompt (Lilita One,
 | 0 s | Rabbit sits, order bubble shows Salmon Nigiri. |
 | 0–1 s | Player walks left to the Rice station (prompt: *Grab Rice*), presses E: the rice bowl pops onto the stack above the panda's head, `Chop` plays. |
 | 1–2 s | Walks to Salmon, E: the salmon slice stacks on top. Up to 3 ingredients are carried; a duplicate or an ingredient that fits no recipe with the current stack is refused with a shake and a message. |
-| 2–3 s | Walks to the pass at the left end (prompt: *Mix*), E: the stack becomes the dish (`Food_SalmonNigiri` over the head, flash on the plate, glow, chime). A stack that matches no recipe fails to mix and stays in hand. |
+| 2–3 s | Walks to the pass at the centre (prompt: *Mix*), E: the stack becomes the dish (`Food_SalmonNigiri` over the head, flash on the plate, glow, chime). A stack that matches no recipe fails to mix and stays in hand. |
 | 3–4 s | Walks in front of the rabbit's stool (prompt: *Serve Salmon Nigiri*), E: the dish flies to the rabbit; pay, tip, streak as before. A wrong dish is refused, lost, and costs the rabbit 25 % patience. |
 | any | E at the sink bins whatever is carried. |
 
