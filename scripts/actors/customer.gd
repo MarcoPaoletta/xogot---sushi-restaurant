@@ -68,10 +68,14 @@ func _ready() -> void:
 func _enter() -> void:
 	state = State.ENTERING
 	_play("Walk")
-	var target := seat_position + Vector3(0, 0, 1.0)
-	_face(target - global_position)
+	# Walk along the aisle in front of the stools, then step in, so we never clip through seated rabbits.
+	var aisle := seat_position + Vector3(0, 0, 2.6)
+	aisle.y = 0.0
+	_face(aisle - global_position)
 	var t := create_tween()
-	t.tween_property(self, "global_position", target, global_position.distance_to(target) / WALK_SPEED).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	t.tween_property(self, "global_position", aisle, global_position.distance_to(aisle) / WALK_SPEED).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	t.tween_callback(func(): _face(Vector3(0, 0, -1)))
+	t.tween_property(self, "global_position", seat_position + Vector3(0, 0, 1.0), 0.45).set_trans(Tween.TRANS_SINE)
 	t.tween_callback(_sit_down)
 	Audio.play("bell", randf_range(0.95, 1.05), -8.0)
 
@@ -194,10 +198,14 @@ func _leave(happy: bool) -> void:
 	await get_tree().create_timer(0.6).timeout
 	left.emit(self, happy)
 	var speed := LEAVE_SPEED if happy else ANGRY_SPEED
-	_face(door_position - global_position)
+	var aisle := seat_position + Vector3(0, 0, 2.6)
+	aisle.y = 0.0
+	_face(Vector3(0, 0, 1))
 	_play("Walk")
 	var t := create_tween()
-	t.tween_property(self, "global_position", door_position, global_position.distance_to(door_position) / speed).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
+	t.tween_property(self, "global_position", aisle, 0.5).set_trans(Tween.TRANS_SINE)
+	t.tween_callback(func(): _face(door_position - global_position))
+	t.tween_property(self, "global_position", door_position, aisle.distance_to(door_position) / speed).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
 	t.tween_callback(queue_free)
 
 
