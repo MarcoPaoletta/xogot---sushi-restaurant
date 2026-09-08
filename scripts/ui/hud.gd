@@ -15,6 +15,8 @@ var _target_earnings := 0
 @onready var screen_fx: ColorRect = $ScreenFX
 @onready var pause_menu: Control = $PauseMenu
 @onready var menu_box: VBoxContainer = $Menu/VBox
+@onready var menu_btn: Button = $MenuButton
+@onready var icon_baker: SubViewport = $IconViewport
 @onready var left_btn: Button = $Touch/Left
 @onready var right_btn: Button = $Touch/Right
 @onready var act_btn: Button = $Touch/Act
@@ -52,19 +54,57 @@ func _ready() -> void:
 func setup(restaurant: Node) -> void:
 	_restaurant = restaurant
 	pause_menu.setup(restaurant)
-	$Menu.add_theme_stylebox_override("panel", UiKit.panel(Color(0.16, 0.09, 0.07, 0.72), 22.0))
-	var title := Label.new()
-	title.text = "Today's menu"
-	UiKit.style_label(title, 30, UiKit.GOLD, 6)
-	menu_box.add_child(title)
-	for id in restaurant.day["dishes"]:
-		var names: Array = []
+	$Menu.add_theme_stylebox_override("panel", UiKit.panel(Color(0.16, 0.09, 0.07, 0.8), 22.0))
+	UiKit.style_button(menu_btn, Color(0.35, 0.25, 0.22, 0.9), 44)
+	menu_btn.custom_minimum_size = Vector2(96, 96)
+	menu_btn.pressed.connect(_toggle_menu)
+	$Menu.visible = false
+	_build_menu(restaurant.day["dishes"])
+
+
+func _toggle_menu() -> void:
+	$Menu.visible = not $Menu.visible
+	if $Menu.visible:
+		UiKit.pop_in($Menu, 0.0)
+
+
+## One row per dish: [dish] = [ingredient] + [ingredient] (+ [ingredient]), icons baked from the real models.
+func _build_menu(dishes: Array) -> void:
+	for c in menu_box.get_children():
+		c.queue_free()
+	for id in dishes:
+		var row := HBoxContainer.new()
+		row.alignment = BoxContainer.ALIGNMENT_BEGIN
+		row.add_theme_constant_override("separation", 6)
+		row.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		menu_box.add_child(row)
+		row.add_child(_icon(await icon_baker.bake(Recipes.DISHES[id]["model"]), 124))
+		row.add_child(_symbol("="))
+		var first := true
 		for ing in Recipes.DISHES[id]["ingredients"]:
-			names.append(Recipes.INGREDIENTS[ing]["name"])
-		var l := Label.new()
-		l.text = "%s  =  %s" % [Recipes.dish_name(id), " + ".join(names)]
-		UiKit.style_label(l, 24, UiKit.PAPER, 5)
-		menu_box.add_child(l)
+			if not first:
+				row.add_child(_symbol("+"))
+			first = false
+			row.add_child(_icon(await icon_baker.bake(Recipes.INGREDIENTS[ing]["model"]), 100))
+
+
+func _icon(tex: Texture2D, size: int) -> TextureRect:
+	var t := TextureRect.new()
+	t.texture = tex
+	t.custom_minimum_size = Vector2(size, size)
+	t.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	t.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	t.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	return t
+
+
+func _symbol(text: String) -> Label:
+	var l := Label.new()
+	l.text = text
+	l.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	UiKit.style_label(l, 44, UiKit.GOLD, 6)
+	l.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	return l
 
 
 func _unhandled_input(event: InputEvent) -> void:

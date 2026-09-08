@@ -37,6 +37,7 @@ var _served_once := false
 @onready var dish_holder: Node3D = $OrderBubble/DishHolder
 @onready var ring: MeshInstance3D = $OrderBubble/Ring
 @onready var recipe_label: Label3D = $OrderBubble/Recipe
+@onready var recipe_row: Node3D = $OrderBubble/RecipeRow
 @onready var tap_target: Area3D = $TapTarget
 
 
@@ -114,10 +115,21 @@ func _show_bubble() -> void:
 		_dish_model = scene.instantiate()
 		dish_holder.add_child(_dish_model)
 		_dish_model.position = Vector3(0, -0.25, 0)
-	var names: Array = []
-	for ing in Recipes.DISHES[order]["ingredients"]:
-		names.append(Recipes.INGREDIENTS[ing]["name"])
-	recipe_label.text = " + ".join(names)
+	# Recipe hint: the ingredient models in a small row under the dish (no text).
+	recipe_label.visible = false
+	for c in recipe_row.get_children():
+		c.queue_free()
+	var ings: Array = Recipes.DISHES[order]["ingredients"]
+	var spacing := 0.62
+	var i := 0
+	for ing in ings:
+		var scene_i := Recipes.load_model(Recipes.INGREDIENTS[ing]["model"])
+		if scene_i:
+			var mi: Node3D = scene_i.instantiate()
+			recipe_row.add_child(mi)
+			mi.position = Vector3((i - (ings.size() - 1) / 2.0) * spacing, 0, 0)
+			mi.scale = Vector3.ONE * 0.42 * float(Recipes.INGREDIENTS[ing].get("scale", 1.0))
+		i += 1
 	bubble.visible = true
 	bubble.scale = Vector3.ONE * 0.01
 	bubble.create_tween().tween_property(bubble, "scale", Vector3.ONE, 0.35).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
@@ -131,6 +143,8 @@ func _process(delta: float) -> void:
 	_set_ring(patience)
 	if _dish_model:
 		_dish_model.rotation.y += deg_to_rad(60.0) * delta
+	for c in recipe_row.get_children():
+		c.rotation.y += deg_to_rad(60.0) * delta
 	bubble.position.y = BUBBLE_HEIGHT + sin(Time.get_ticks_msec() / 1000.0 * 2.5) * 0.08
 	if patience < 0.3:
 		_tick_t -= delta
