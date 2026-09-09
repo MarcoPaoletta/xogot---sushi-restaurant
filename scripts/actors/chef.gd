@@ -1,13 +1,16 @@
 extends Node3D
 ## Panda, player controlled: walks left/right behind the counter, carries a stack of ingredients
-## or a finished dish over its head (GDD v2, section 15).
+## or a finished dish in its hands (GDD v2, section 15).
 
 signal interact_requested
 
 const SPEED := 7.5
 const MIN_X := -9.2
 const MAX_X := 9.6
-const STACK_STEP := 0.62
+const STACK_STEP := 0.5
+const HAND_HEIGHT := 1.55      # Hands sits under Model, so it turns with the panda
+const HELD_SCALE := 1.3
+const DISH_SCALE := 1.7
 
 var held: Array = []          # ingredient ids in pickup order
 var held_dish := ""           # dish id once mixed
@@ -18,7 +21,7 @@ var _react_until := 0.0
 var _chop_until := 0.0
 
 @onready var model: Node3D = $Model
-@onready var hands: Node3D = $Hands
+@onready var hands: Node3D = $Model/Hands
 
 
 func _ready() -> void:
@@ -93,7 +96,7 @@ func add_ingredient(id: String) -> String:
 	if Recipes.match_dish(candidate) == "" and not Recipes.is_prefix(candidate):
 		return "ruined"
 	held = candidate
-	_spawn_held(Recipes.INGREDIENTS[id]["model"], held.size() - 1, 0.9 * float(Recipes.INGREDIENTS[id].get("scale", 1.0)))
+	_spawn_held(Recipes.INGREDIENTS[id]["model"], held.size() - 1, HELD_SCALE * float(Recipes.INGREDIENTS[id].get("scale", 1.0)))
 	return "added"
 
 
@@ -105,7 +108,7 @@ func mix() -> String:
 	held_dish = dish
 	held.clear()
 	_clear_held_models()
-	_spawn_held(Recipes.DISHES[dish]["model"], 0, 1.5)
+	_spawn_held(Recipes.DISHES[dish]["model"], 0, DISH_SCALE)
 	return dish
 
 
@@ -139,6 +142,6 @@ func _clear_held_models() -> void:
 
 func _process(delta: float) -> void:
 	# Gentle bob of the carried stack.
-	hands.position.y = 3.75 + sin(Time.get_ticks_msec() / 1000.0 * 4.0) * 0.05
+	hands.position.y = HAND_HEIGHT + sin(Time.get_ticks_msec() / 1000.0 * 4.0) * 0.05
 	for c in hands.get_children():
 		c.rotation.y += delta * 1.2
