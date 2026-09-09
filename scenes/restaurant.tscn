@@ -651,14 +651,30 @@ transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0
 [node name="Seat" type="Marker3D" parent="Tables/Table4" unique_id=695981064]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, 1.25)
 
-[node name="CounterLightL" type="OmniLight3D" parent="." unique_id=1479528364]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 4.6, -2.4)
-light_color = Color(1, 0.93, 0.8, 1)
-light_energy = 1.3
-omni_range = 11.0
+[node name="CounterLight1" type="OmniLight3D" parent="." unique_id=612205498]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.5, 4, -2.2)
+light_color = Color(1, 0.94, 0.84, 1)
+light_energy = 2.2
+omni_range = 9.0
+omni_attenuation = 0.8
 
-[node name="CounterLightR" type="OmniLight3D" parent="." unique_id=29296522]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 4.6, -2.4)
-light_color = Color(1, 0.93, 0.8, 1)
-light_energy = 1.3
-omni_range = 11.0
+[node name="CounterLight2" type="OmniLight3D" parent="." unique_id=204152144]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 4, -2.2)
+light_color = Color(1, 0.94, 0.84, 1)
+light_energy = 2.2
+omni_range = 9.0
+omni_attenuation = 0.8
+
+[node name="CounterLight3" type="OmniLight3D" parent="." unique_id=2033733621]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 4, -2.2)
+light_color = Color(1, 0.94, 0.84, 1)
+light_energy = 2.2
+omni_range = 9.0
+omni_attenuation = 0.8
+
+[node name="CounterLight4" type="OmniLight3D" parent="." unique_id=1956696914]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 4, -2.2)
+light_color = Color(1, 0.94, 0.84, 1)
+light_energy = 2.2
+omni_range = 9.0
+omni_attenuation = 0.8
