@@ -238,10 +238,10 @@ text = "GRAB / MIX / SERVE"
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -640.0
+offset_left = -40.0
 offset_top = 270.0
 offset_right = -40.0
-offset_bottom = 300.0
+offset_bottom = 270.0
 grow_horizontal = 0
 mouse_filter = 2
 
@@ -254,7 +254,7 @@ theme_override_constants/separation = 4
 own_world_3d = true
 transparent_bg = true
 msaa_3d = 3
-size = Vector2i(256, 256)
+size = Vector2i(384, 384)
 render_target_update_mode = 0
 script = ExtResource("5_oj5la")
 
@@ -262,21 +262,22 @@ script = ExtResource("5_oj5la")
 environment = ExtResource("6_gss2c")
 
 [node name="Sun" type="DirectionalLight3D" parent="IconViewport" unique_id=1425401110]
-transform = Transform3D(0.8660254, 0.3345653, -0.3715724, 0, 0.7431448, 0.6691306, 0.5, -0.5794841, 0.6435823, 0, 0, 0)
-light_color = Color(1, 0.96, 0.9, 1)
-light_energy = 1.4
+transform = Transform3D(0.90630776, 0.28278682, -0.3140666, 0, 0.7431448, 0.6691306, 0.42261827, -0.6064383, 0.6735179, 0, 0, 0)
+light_color = Color(1, 0.93, 0.82, 1)
+light_energy = 1.2
+shadow_enabled = true
 
 [node name="Camera" type="Camera3D" parent="IconViewport" unique_id=792588055]
-transform = Transform3D(1, 0, 0, 0, 0.9135454, 0.40673664, 0, -0.40673664, 0.9135454, 0, 0.95, 2.2)
+transform = Transform3D(1, 0, 0, 0, 0.8660254, 0.5, 0, -0.5, 0.8660254, 0, 1.25, 2.15)
 current = true
-fov = 32.0
+fov = 30.0
 
 [node name="Slot" type="Node3D" parent="IconViewport" unique_id=476200386]
 
 [node name="Fill" type="DirectionalLight3D" parent="IconViewport" unique_id=986208278]
-transform = Transform3D(-0.8660254, -0.12940954, 0.48296297, 0, 0.9659258, 0.25881904, -0.50000006, 0.22414386, -0.83651626, 0, 0, 0)
-light_color = Color(0.85, 0.9, 1, 1)
-light_energy = 0.55
+transform = Transform3D(-0.9396926, -0.19617474, 0.28016657, 0, 0.81915206, 0.57357645, -0.3420202, 0.53898555, -0.76975113, 0, 0, 0)
+light_color = Color(1, 0.8, 0.55, 1)
+light_energy = 0.7
 
 [node name="MenuButton" type="Button" parent="." unique_id=1240589538]
 anchors_preset = 1

@@ -93,13 +93,17 @@ func _build_menu(dishes: Array) -> void:
 			if not first:
 				row.add_child(_symbol("+"))
 			first = false
-			row.add_child(_chip(await icon_baker.bake(Recipes.INGREDIENTS[ing]["model"]), 104))
+			row.add_child(_chip(await icon_baker.bake(Recipes.INGREDIENTS[ing]["model"]), 104, Recipes.INGREDIENTS[ing]["name"]))
 		row.add_child(_symbol("="))
-		row.add_child(_chip(await icon_baker.bake(Recipes.DISHES[id]["model"]), 124))
+		row.add_child(_chip(await icon_baker.bake(Recipes.DISHES[id]["model"]), 124, Recipes.dish_name(id)))
 
 
-## An icon on a rounded white chip.
-func _chip(tex: Texture2D, size: int) -> Control:
+## An icon on a rounded chip with its name underneath.
+func _chip(tex: Texture2D, size: int, label_text: String) -> Control:
+	var box := VBoxContainer.new()
+	box.alignment = BoxContainer.ALIGNMENT_CENTER
+	box.add_theme_constant_override("separation", 2)
+	box.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	var chip := PanelContainer.new()
 	var sb := StyleBoxFlat.new()
 	sb.bg_color = Color(0.94, 0.9, 0.82)
@@ -117,7 +121,15 @@ func _chip(tex: Texture2D, size: int) -> Control:
 	t.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
 	t.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	chip.add_child(t)
-	return chip
+	box.add_child(chip)
+	var name_label := Label.new()
+	name_label.text = label_text
+	name_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	name_label.custom_minimum_size = Vector2(size + 36, 0)
+	UiKit.style_label(name_label, 20, UiKit.INK, 0)
+	name_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	box.add_child(name_label)
+	return box
 
 
 func _symbol(text: String) -> Label:
