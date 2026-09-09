@@ -1,25 +1,25 @@
 extends Node3D
 ## Day controller (v2): the chef walks along the counter and presses the action button next to
-## stations, the pass, customers and the sink. Nothing in the world is tapped any more.
+## stations, the pass and customers. Nothing in the world is tapped any more.
 
 const CUSTOMER := preload("res://scenes/actors/customer.tscn")
 const KIT_CHARS := "res://assets/Sushi Restaurant Kit - May 2023/Characters/Normal/glTF/"
 const REACH := 1.35          # metres in X the chef can reach a station or a customer from
-const REACH_WIDE := 1.7      # the pass and the sink are bigger
+const REACH_WIDE := 1.7      # the pass is a wider target than a station
 
-## The dining room grows over the week (GDD section 17): each entry is the first day index a piece shows.
+## The dining room fills up over the week (GDD section 18): each entry is the first day index a piece shows.
 const UNLOCKS := {
 	"Decoration/Sign": 0, "Decoration/Carpet": 0,
 	"Decoration/Painting": 1, "Decoration/Bamboo": 1,
 	"Decoration/LanternL": 2, "Decoration/LanternR": 2, "Decoration/PlantL": 2, "Decoration/PlantR": 2,
 	"Decoration/Sakura": 2,
-	"Decoration/Fish": 3, "Decoration/LanternL2": 3, "Decoration/LanternR2": 3,
-	"Decoration/Painting2": 4, "Decoration/PlantL2": 4, "Decoration/PlantR2": 4, "Decoration/Carpet2": 4, "Decoration/Bamboo2": 4,
-	"Counter/SegmentWideL": 3, "Counter/SegmentWideR": 3,
-	"Kitchen/BackWideL": 3, "Kitchen/BackWideL2": 3, "Kitchen/BackWideR": 3, "Kitchen/BackWideR2": 3,
+	"Decoration/Fish": 3, "Decoration/WallLightL": 3, "Decoration/WallLightR": 3, "Tables/Table1": 3, "Tables/Table4": 3,
+	"Decoration/Painting2": 4, "Decoration/Carpet2": 4, "Tables/Table2": 4, "Tables/Table3": 4,
 }
-const NARROW_CAMERA := Vector3(0, 11.5, 17.5)
-const WIDE_CAMERA := Vector3(0, 14.2, 21.6)
+## Lower and flatter than v3 so the floor in front of the counter (and the tables on it) fills the
+## frame; raised and tilted down a little after the first v5 look (Marco: "cover the space better").
+const CAMERA_POS := Vector3(0, 13.0, 16.5)
+const CAMERA_PITCH := -38.0
 
 var day_index := 0
 var day: Dictionary = {}
@@ -37,12 +37,13 @@ var _tutorial_step := 0
 var _target: Node = null
 var _target_kind := ""
 var _seat_set: Array = []
+var _tables_free: Array = []
 
 @onready var stations: Node3D = $Stations
 @onready var plate: Node3D = $Plate
-@onready var sink: Node3D = $Sink
 @onready var chef: Node3D = $Chef
 @onready var seats: Node3D = $Seats
+@onready var tables: Node3D = $Tables
 @onready var door: Marker3D = $Door
 @onready var customers: Node3D = $Customers
 @onready var spawner: Node = $Spawner
@@ -69,46 +70,32 @@ func _ready() -> void:
 	_intro()
 
 
-## Shows the pieces of the room this day has earned, widens it from day 4 and lays the
-## day's stations out from the centre of the back counter.
+## Shows the pieces of the room this day has earned and lays the day's stations out from the
+## centre of the back counter.
 func _apply_layout() -> void:
-	var wide: bool = day.get("wide", false)
 	for path in UNLOCKS:
 		var n := get_node_or_null(path)
 		if n:
 			n.visible = day_index >= int(UNLOCKS[path])
-	$Kitchen/Steamer.visible = day_index >= 1 and not wide
-	$Kitchen/Bottles.visible = day_index >= 2 and not wide
-	$Room/Wide.visible = wide
-	$Room/SideNarrow.visible = not wide
-	$Kitchen/Back5.visible = not wide
-	# The wall cabinet sits where the wide counter's centre stations put their labels.
-	$Kitchen/Shelves.visible = not wide
-	if wide:
-		$Kitchen/Fridge.position = Vector3(-15.0, 0, 2.0)
-		$Kitchen/Fridge.rotation_degrees.y = 90
-		$Kitchen/Oven.position = Vector3(15.0, 0, 2.0)
-		$Kitchen/Oven.rotation_degrees.y = -90
-		sink.position.x = 14.0
-		door.position.x = -18.5
-		camera.position = WIDE_CAMERA
-		chef.set_range(-14.6, 14.4)
-	else:
-		camera.position = NARROW_CAMERA
+	camera.position = CAMERA_POS
+	camera.rotation_degrees = Vector3(CAMERA_PITCH, 0, 0)
 	_seat_set = Game.SEAT_SETS[int(day["seats"])]
 	for i in seats.get_child_count():
 		var stool := $Counter.get_node_or_null("Stool%d" % (i + 1))
 		if stool:
 			stool.visible = _seat_set.has(i)
+	_tables_free.clear()
+	for tbl in tables.get_children():
+		_tables_free.append(tbl.visible)
 	var ids: Array = day["stations"]
-	var xs: Array = Recipes.station_slots(ids.size(), wide)
+	var xs: Array = Recipes.station_slots(ids.size())
 	var k := 0
 	for id in Recipes.STATION_ORDER:
 		var s: Node = stations.get_node_or_null("Station" + id.capitalize())
 		if s == null:
 			continue
 		if ids.has(id) and k < xs.size():
-			s.place(float(xs[k]), 3 if wide else 2)
+			s.place(float(xs[k]))
 			k += 1
 			s.set_unlocked(true)
 		else:
@@ -155,16 +142,13 @@ func _update_target() -> void:
 			best = s
 			best_kind = "station"
 			best_d = d
+	# The pass mixes a stack and, when the chef is stuck with a finished dish, bins it (v5: the
+	# sink is gone, its label collided with the stations at the right end of the counter).
 	var dp: float = absf(plate.global_position.x - x)
-	if dp < REACH_WIDE and dp < best_d and not chef.held.is_empty():
+	if dp < REACH_WIDE and dp < best_d and not chef.is_empty():
 		best = plate
-		best_kind = "mix"
+		best_kind = "bin" if carrying_dish else "mix"
 		best_d = dp
-	var ds: float = absf(sink.global_position.x - x)
-	if ds < REACH_WIDE and ds < best_d and not chef.is_empty():
-		best = sink
-		best_kind = "bin"
-		best_d = ds
 	for c in customers.get_children():
 		if c.state != c.State.WAITING:
 			continue
@@ -193,8 +177,6 @@ func _update_target() -> void:
 	var above: Vector3 = _target.global_position + Vector3(0, 1.5, 0)
 	if _target_kind == "serve":
 		above = _target.global_position + Vector3(0, 4.4, 0)
-	elif _target_kind == "bin":
-		above = _target.global_position + Vector3(0, 1.9, 0)
 	if not prompt.visible:
 		prompt.global_position = above
 		prompt.visible = true
@@ -264,7 +246,7 @@ func _mix() -> void:
 func _bin() -> void:
 	chef.drop_all()
 	Audio.play("splash", randf_range(0.95, 1.05), -6.0)
-	FX.burst(get_tree(), sink.global_position + Vector3.UP * 2.3, Color(0.6, 0.8, 1.0), 20, 1.0)
+	FX.burst(get_tree(), plate.global_position + Vector3.UP * 1.2, Color(0.6, 0.8, 1.0), 20, 1.0)
 	_update_target()
 
 
@@ -336,6 +318,12 @@ func _on_customer_served(c: Node, correct: bool, patience_left: float) -> void:
 			Audio.play("streak", 1.0, -10.0)
 		hud.flash_message("%s  +%d" % [("Perfect!" if patience_left >= 0.8 else "Nice!"), price + tip])
 		_tutorial("served")
+		if c.orders.is_empty():
+			var i := _tables_free.find(true)
+			if i != -1:
+				_tables_free[i] = false
+				c.go_to_table(i, tables.get_child(i).get_node("Seat").global_position)
+				spawner.free_seat(c.seat_index)
 	else:
 		streak = 0
 		hud.set_streak(0)
@@ -343,7 +331,10 @@ func _on_customer_served(c: Node, correct: bool, patience_left: float) -> void:
 
 func _on_customer_left(c: Node, was_happy: bool) -> void:
 	handled += 1
-	spawner.free_seat(c.seat_index)
+	if c.table_index == -1:
+		spawner.free_seat(c.seat_index)      # rabbits that moved to a table freed their stool already
+	elif c.table_index < _tables_free.size():
+		_tables_free[c.table_index] = true
 	if was_happy:
 		happy += 1
 	else:
@@ -427,7 +418,7 @@ func _tutorial(event: String) -> void:
 		"stuck":
 			if _tutorial_step < 4:
 				_tutorial_step = 4
-				hud.flash_message("The sink on the right bins what you hold", 2.5)
+				hud.flash_message("Stuck with a dish? Bin it at the pass in the middle", 2.5)
 		"served":
 			if _tutorial_step < 5:
 				_tutorial_step = 5

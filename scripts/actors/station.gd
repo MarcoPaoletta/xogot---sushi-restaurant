@@ -3,6 +3,10 @@ extends Node3D
 
 @export var ingredient := "rice"
 var unlocked := true
+const TARGET_SIZE := 0.85     # longest edge of any ingredient sitting on the board
+const FLAT_TILT := -34.0      # flat things (nori, a fillet, an eel) lean back to face the camera
+const BASE_YAW := -18.0
+const LABEL_HEIGHT := 1.6     # every label at the same height; the font is small enough for one slot
 
 @onready var model_root: Node3D = $Model
 @onready var cover: Node3D = $Cover
@@ -19,18 +23,52 @@ func _ready() -> void:
 		if scene:
 			_model = scene.instantiate()
 			model_root.add_child(_model)
-			_model.scale = Vector3.ONE * float(info.get("scale", 1.0))
+			_fit(_model)
 		label.text = info["name"]
 	place(position.x)
 	set_unlocked(unlocked)
 
 
-## Puts the station at X on the back counter. Neighbouring stations are 1.8 u apart, so label
-## heights cycle through `levels` steps per slot and long names never overlap.
-func place(x: float, levels := 2) -> void:
+## Sizes an ingredient to TARGET_SIZE, stands it on the board and turns its long axis along the
+## counter, so all fourteen models read at the same scale however the kit authored them.
+func _fit(m: Node3D) -> void:
+	m.transform = Transform3D.IDENTITY
+	var local := _model_aabb(m)
+	if local.size.length() < 0.0001:
+		return
+	var longest := maxf(local.size.x, maxf(local.size.y, local.size.z))
+	var flat: bool = local.size.y < 0.4 * maxf(local.size.x, local.size.z)
+	var lengthwise := 90.0 if local.size.z > local.size.x else 0.0
+	m.rotation_degrees = Vector3(FLAT_TILT if flat else 0.0, BASE_YAW + lengthwise, 0.0)
+	m.scale = Vector3.ONE * (TARGET_SIZE / longest)
+	var placed: AABB = m.transform * local
+	m.position = -Vector3(placed.get_center().x, placed.position.y, placed.get_center().z)
+
+
+## AABB of every mesh under `node`, in that node's own untransformed space.
+func _model_aabb(node: Node3D) -> AABB:
+	var box := AABB()
+	var found := false
+	var stack: Array = [[node, Transform3D.IDENTITY]]
+	while not stack.is_empty():
+		var entry: Array = stack.pop_back()
+		var n: Node = entry[0]
+		var xform: Transform3D = entry[1]
+		if n is MeshInstance3D and n.mesh != null:
+			var b: AABB = xform * n.mesh.get_aabb()
+			box = b if not found else box.merge(b)
+			found = true
+		for c in n.get_children():
+			if c is Node3D:
+				stack.append([c, xform * c.transform])
+	return box
+
+
+## Puts the station at X on the back counter. Labels share one height and a font that fits the
+## 1.8 u slot, so the row reads as a single aligned line.
+func place(x: float, _levels := 2) -> void:
 	position.x = x
-	var slot := int(round(x / Recipes.SLOT_STEP))
-	label.position.y = 1.45 + 0.5 * posmod(slot, levels)
+	label.position.y = LABEL_HEIGHT
 
 
 func set_unlocked(on: bool) -> void:

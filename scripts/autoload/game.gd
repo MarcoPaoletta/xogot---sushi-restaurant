@@ -6,28 +6,28 @@ signal day_finished(result: Dictionary)
 
 const SAVE_PATH := "user://save.json"
 
-## GDD section 11 (v4: the room grows, ingredients unlock every day).
+## GDD section 11 (v5: at most seven dishes a day, the menu rotates as ingredients arrive).
 const DAYS: Array[Dictionary] = [
-	{"name": "Opening", "customers": 8, "seats": 2, "wide": false,
+	{"name": "Opening", "customers": 8, "seats": 2,
 		"dishes": ["salmon_nigiri", "maguro_nigiri", "onigiri"],
 		"stations": ["rice", "nori", "salmon", "tuna"],
 		"patience": 30.0, "gap": 6.0, "target": 60, "double_every": 0},
-	{"name": "Regulars", "customers": 10, "seats": 3, "wide": false,
+	{"name": "Regulars", "customers": 10, "seats": 3,
 		"dishes": ["salmon_nigiri", "maguro_nigiri", "onigiri", "ebi_nigiri", "cucumber_roll"],
 		"stations": ["rice", "nori", "salmon", "tuna", "ebi", "cucumber"],
 		"patience": 26.0, "gap": 5.0, "target": 100, "double_every": 0},
-	{"name": "Lunch rush", "customers": 12, "seats": 4, "wide": false,
+	{"name": "Lunch rush", "customers": 12, "seats": 4,
 		"dishes": ["salmon_nigiri", "maguro_nigiri", "onigiri", "ebi_nigiri", "cucumber_roll", "tamago_nigiri", "octopus_nigiri"],
 		"stations": ["rice", "nori", "salmon", "tuna", "ebi", "cucumber", "egg", "tentacle"],
 		"patience": 26.0, "gap": 4.5, "target": 150, "double_every": 4},
-	{"name": "Festival", "customers": 14, "seats": 5, "wide": true,
-		"dishes": ["salmon_nigiri", "maguro_nigiri", "onigiri", "ebi_nigiri", "cucumber_roll", "tamago_nigiri", "octopus_nigiri", "salmon_roll", "urchin_roll", "avocado_roll", "crab_roll", "eel_nigiri"],
-		"stations": ["rice", "nori", "salmon", "tuna", "ebi", "cucumber", "egg", "tentacle", "urchin", "avocado", "crab", "eel"],
-		"patience": 30.0, "gap": 5.5, "target": 200, "double_every": 5},
-	{"name": "Grand finale", "customers": 16, "seats": 6, "wide": true,
-		"dishes": ["salmon_nigiri", "maguro_nigiri", "onigiri", "ebi_nigiri", "cucumber_roll", "tamago_nigiri", "octopus_nigiri", "salmon_roll", "urchin_roll", "avocado_roll", "crab_roll", "eel_nigiri", "squid_nigiri", "mackerel_nigiri"],
-		"stations": ["rice", "nori", "salmon", "tuna", "ebi", "cucumber", "egg", "tentacle", "urchin", "avocado", "crab", "eel", "squid", "mackerel"],
-		"patience": 30.0, "gap": 5.5, "target": 240, "double_every": 6},
+	{"name": "Festival", "customers": 14, "seats": 5,
+		"dishes": ["maguro_nigiri", "ebi_nigiri", "salmon_roll", "urchin_roll", "avocado_roll", "crab_roll", "eel_nigiri"],
+		"stations": ["rice", "nori", "salmon", "tuna", "ebi", "urchin", "avocado", "crab", "eel"],
+		"patience": 32.0, "gap": 6.5, "target": 200, "double_every": 5},
+	{"name": "Grand finale", "customers": 16, "seats": 6,
+		"dishes": ["octopus_nigiri", "urchin_roll", "avocado_roll", "crab_roll", "eel_nigiri", "squid_nigiri", "mackerel_nigiri"],
+		"stations": ["rice", "nori", "tentacle", "urchin", "avocado", "crab", "eel", "squid", "mackerel"],
+		"patience": 32.0, "gap": 6.0, "target": 240, "double_every": 6},
 ]
 
 ## Which seat markers (children of Restaurant/Seats, X -6 -2 2 6 -10 10) a day with N seats uses,

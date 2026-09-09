@@ -27,7 +27,7 @@ modulate = Color(1, 0.97, 0.9, 1)
 outline_modulate = Color(0.2, 0.1, 0.08, 1)
 text = "Rice"
 font = ExtResource("6_mpi4a")
-font_size = 56
+font_size = 40
 outline_size = 18
 
 [node name="TapTarget" type="Area3D" parent="." unique_id=1597579781]

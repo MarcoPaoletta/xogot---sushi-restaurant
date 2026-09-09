@@ -48,19 +48,14 @@ const MAX_INGREDIENTS := 3
 const SLOT_STEP := 1.8
 
 
-## X positions for `count` stations in centre-out order (the pass sits in the gap at X 0), so the
-## first ingredients in STATION_ORDER — rice and nori, which every recipe needs — sit beside the pass.
-## The narrow room has 5 slots per side; the wide room (days 4-5) 8 on the left and 6 on the right,
-## because its sink moves to the right end of the counter.
-static func station_slots(count: int, wide: bool) -> Array:
-	var left := 8 if wide else 5
-	var right := 6 if wide else 5
+## X positions for `count` stations in centre-out order, 1.8 u apart, the innermost pair at ±1.35 so
+## the centre of the counter is used and the chef (and the pass behind him at X 0) still has its gap.
+## Rice and nori come first in STATION_ORDER, so the ingredients every recipe needs are always nearest.
+static func station_slots(count: int) -> Array:
 	var xs: Array = []
-	for i in range(1, maxi(left, right) + 1):
-		if i <= left:
-			xs.append(-SLOT_STEP * i)
-		if i <= right:
-			xs.append(SLOT_STEP * i)
+	for i in 5:
+		xs.append(-(1.35 + SLOT_STEP * i))
+		xs.append(1.35 + SLOT_STEP * i)
 	return xs.slice(0, mini(count, xs.size()))
 
 static var _scene_cache: Dictionary = {}

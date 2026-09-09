@@ -13,6 +13,7 @@ const LEAVE_SPEED := 3.0
 const ANGRY_SPEED := 4.0
 const MODEL_SCALE := 0.7
 const BUBBLE_HEIGHT := 3.9
+const AISLE := 2.0            # walking lane between the stools and the tables
 
 var state := State.ENTERING
 var orders: Array = []            # remaining dish ids for this customer
@@ -22,6 +23,9 @@ var patience_seconds := 30.0
 var seat_index := -1
 var seat_position := Vector3.ZERO
 var door_position := Vector3.ZERO
+var table_index := -1              # set when the rabbit takes its dish to a table (v5)
+var _table_position := Vector3.ZERO
+var _resting_position := Vector3.ZERO   # where the rabbit sits now: stool or table chair
 var model_path := ""
 
 var _anim: AnimationPlayer
@@ -71,7 +75,7 @@ func _enter() -> void:
 	state = State.ENTERING
 	_play("Walk")
 	# Walk along the aisle in front of the stools, then step in, so we never clip through seated rabbits.
-	var aisle := seat_position + Vector3(0, 0, 2.6)
+	var aisle := seat_position + Vector3(0, 0, AISLE)
 	aisle.y = 0.0
 	_face(aisle - global_position)
 	var t := create_tween()
@@ -84,6 +88,7 @@ func _enter() -> void:
 
 func _sit_down() -> void:
 	state = State.SITTING_DOWN
+	_resting_position = seat_position
 	_face(Vector3(0, 0, -1))
 	var t := create_tween()
 	t.tween_property(self, "global_position", seat_position, 0.35).set_trans(Tween.TRANS_SINE)
@@ -186,10 +191,21 @@ func serve(dish: String) -> bool:
 	return false
 
 
+## The restaurant calls this right after a correct serve: the rabbit carries its dish to a table
+## on the floor, which frees the stool for the next customer.
+func go_to_table(index: int, chair: Vector3) -> void:
+	table_index = index
+	_table_position = chair
+
+
 func _eat() -> void:
 	await get_tree().create_timer(1.0).timeout
 	if state != State.EATING:
 		return
+	if table_index != -1:
+		await _walk_to_table()
+		if state != State.EATING:
+			return
 	_play("Sitting_Eating")
 	await get_tree().create_timer(2.5).timeout
 	if state != State.EATING:
@@ -210,6 +226,26 @@ func _angry() -> void:
 	_leave(false)
 
 
+func _walk_to_table() -> void:
+	_play("Sitting_End")
+	await get_tree().create_timer(0.5).timeout
+	var aisle := seat_position + Vector3(0, 0, AISLE)
+	aisle.y = 0.0
+	var behind := _table_position + Vector3(0, 0, 1.1)
+	behind.y = 0.0
+	_face(Vector3(0, 0, 1))
+	_play("Walk")
+	var t := create_tween()
+	t.tween_property(self, "global_position", aisle, 0.5).set_trans(Tween.TRANS_SINE)
+	t.tween_callback(func(): _face(behind - global_position))
+	t.tween_property(self, "global_position", behind, aisle.distance_to(behind) / WALK_SPEED).set_trans(Tween.TRANS_SINE)
+	t.tween_callback(func(): _face(Vector3(0, 0, -1)))
+	t.tween_property(self, "global_position", _table_position, 0.4).set_trans(Tween.TRANS_SINE)
+	await t.finished
+	_resting_position = _table_position
+	_play("Sitting_Start")
+
+
 func _leave(happy: bool) -> void:
 	state = State.LEAVING
 	_hide_bubble()
@@ -217,7 +253,7 @@ func _leave(happy: bool) -> void:
 	await get_tree().create_timer(0.6).timeout
 	left.emit(self, happy)
 	var speed := LEAVE_SPEED if happy else ANGRY_SPEED
-	var aisle := seat_position + Vector3(0, 0, 2.6)
+	var aisle := _resting_position + Vector3(0, 0, AISLE)
 	aisle.y = 0.0
 	_face(Vector3(0, 0, 1))
 	_play("Walk")
