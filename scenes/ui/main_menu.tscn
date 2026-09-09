@@ -48,7 +48,7 @@ light_energy = 1.4
 omni_range = 16.0
 
 [node name="Camera" type="Camera3D" parent="." unique_id=1939192491]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, 4.2, 11.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.2, 3.9, 10.8)
 current = true
 fov = 42.0
 
@@ -147,7 +147,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.2, 2.23, -3.1)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.5, 0, -3.1)
 
 [node name="Sign" type="Node3D" parent="Diorama" unique_id=714148110 instance=ExtResource("43_mwe6l")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.4, -3.55)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.2, 4.4, -3.55)
 
 [node name="Lantern" type="Node3D" parent="Diorama" unique_id=419737867 instance=ExtResource("45_ge5uh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 4.2, 4)
@@ -230,9 +230,9 @@ anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -800.0
-offset_top = 300.0
+offset_top = 290.0
 offset_right = 800.0
-offset_bottom = 360.0
+offset_bottom = 350.0
 text = "tap the ingredients  ·  serve the rabbits  ·  keep the streak"
 horizontal_alignment = 1
 

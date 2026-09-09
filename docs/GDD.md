@@ -4,7 +4,7 @@
 **Platform:** iPad and Mac (Xogot / Godot 4.7, Mobile renderer). Touch first; mouse works identically (one pointer).
 **Engine stamp:** `config/features = ["4.7", "Mobile"]` (Xogot 1.7.2 / Godot 4.7.2) — never upgraded by the build.
 **Art:** Quaternius *Sushi Restaurant Kit* (May 2023) and Quaternius *Ultimate Food Pack* (Oct 2019), both CC0, imported at `res://assets/Sushi Restaurant Kit - May 2023/` and `res://assets/Ultimate Food Pack - Oct 2019/` (the packs' own folder names, structure untouched).
-**Document version:** 3.0 — 2026-09-08 (1.0 pre-build specification; 1.1 implementation notes; 2.0 the moving-chef redesign in section 15; 3.0 the readability pass in section 16)
+**Document version:** 3.1 — 2026-09-08 (1.0 pre-build specification; 1.1 implementation notes; 2.0 the moving-chef redesign in section 15; 3.0 the readability pass in section 16; 3.1 desktop fullscreen notes)
 **Status:** Specification. At the time of writing the project contains the two asset packs, this document and nothing else: zero scenes, zero scripts.
 
 ---
@@ -427,5 +427,7 @@ Changes after Marco played V2:
 - **Room for the chef.** The customer counter moved forward to Z 1.2 (stools and seats at Z 3.5, pass at Z 1.75), so the corridor is 2.6 u wide (Z −2.3 … 0.3) and the panda at Z −1.0 never clips either counter. The chef is the plain `Panda` (no knife and pan), so the `Idle_Holding` / `Walk_Holding` poses show the carried stack, which now floats at Y 3.75, Z +0.7 in front of the head at 0.9× (ingredients) / 1.5× (dish).
 - **Camera** (0, 11.5, 17.5), pitch −30°, so the front and back rows separate more; order bubbles were shrunk (ring 1.35, dish 1.25×) and the tutorial messages moved down over the floor so nothing overlaps the back counter.
 - **Labels**: station labels 0.0105 pixel size, 56 px, alternating heights; "Sea urchin" is now "Urchin". The main-menu how-to line sits directly under the title and reads *walk with ◀ ▶ · grab ingredients · mix at the pass · serve the rabbits*.
+
+- **Desktop fullscreen.** `display/window/size/mode` is *Fullscreen* (mode 3), so the macOS build opens as a real fullscreen window instead of the 4:3 editor pane. The restaurant room was widened for 16:10 / 16:9: a fourth floor row at Z 10, side walls at Z 10 and a third wall row at Y 10.34, so no void shows at the edges with the same camera. The delivery truck outside the door was removed — its glass material forced a shader compile in the middle of the scene load, which deadlocked the exported build with a cold shader cache. On the title screen the すし sign moved left of the fridge (X −6.2) and the camera aims at Y 1.2, so the title and the how-to line sit on plain wall.
 
 *End of document.*

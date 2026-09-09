@@ -49,4 +49,4 @@ func _process(delta: float) -> void:
 	_t += delta
 	var yaw := deg_to_rad(6.0) * sin(_t * TAU / 12.0)
 	camera.position = _base_cam.rotated(Vector3.UP, yaw)
-	camera.look_at(Vector3(0, 1.5, 0))
+	camera.look_at(Vector3(0, 1.2, 0))
