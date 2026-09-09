@@ -165,6 +165,10 @@ func _symbol(text: String) -> Label:
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("pause"):
 		_on_pause()
+	elif event.is_action_pressed("recipes"):
+		# R opens and closes the recipe book, same as the corner button.
+		get_viewport().set_input_as_handled()
+		_toggle_menu()
 
 
 func _on_pause() -> void:

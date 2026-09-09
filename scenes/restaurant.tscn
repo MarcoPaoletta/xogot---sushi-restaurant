@@ -10,7 +10,6 @@
 [ext_resource type="PackedScene" uid="uid://c5ccd3y2jxhtx" path="res://assets/Sushi Restaurant Kit - May 2023/Environment/glTF/Wall_Door.gltf" id="13_kc1od"]
 [ext_resource type="PackedScene" uid="uid://jwwb6wcc4uux" path="res://assets/Sushi Restaurant Kit - May 2023/Environment/glTF/Environment_WoodenBeam.gltf" id="15_l6tuk"]
 [ext_resource type="PackedScene" uid="uid://d2go7sttf4mmd" path="res://assets/Sushi Restaurant Kit - May 2023/Environment/glTF/Environment_Fridge.gltf" id="17_xe4th"]
-[ext_resource type="PackedScene" uid="uid://cvrwluljupn61" path="res://assets/Sushi Restaurant Kit - May 2023/Environment/glTF/Environment_CanFridge.gltf" id="29_15cxt"]
 [ext_resource type="PackedScene" uid="uid://clafifapegb3o" path="res://assets/Sushi Restaurant Kit - May 2023/Decoration/glTF/Decoration_WallLight.gltf" id="29_rcxp6"]
 [ext_resource type="PackedScene" uid="uid://cwbfy1jl1jlni" path="res://assets/Sushi Restaurant Kit - May 2023/Environment/glTF/Environment_Counter_Straight.gltf" id="35_ypv0g"]
 [ext_resource type="PackedScene" uid="uid://junlv0na83ch" path="res://assets/Sushi Restaurant Kit - May 2023/Environment/glTF/Environment_Counter_Drawers.gltf" id="37_nqr2e"]
@@ -397,7 +396,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, -3.2)
 [node name="Back5" type="Node3D" parent="Kitchen" unique_id=614185989 instance=ExtResource("39_cnueb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -3.2)
 
-[node name="DrinksFridge" type="Node3D" parent="Kitchen" unique_id=2048866834 instance=ExtResource("29_15cxt")]
+[node name="FridgeRight" type="Node3D" parent="Kitchen" unique_id=571418355 instance=ExtResource("17_xe4th")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 0, -3.1)
 
 [node name="Counter" type="Node3D" parent="." unique_id=1698402743]
