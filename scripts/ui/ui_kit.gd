@@ -84,12 +84,22 @@ static func style_title(l: Label, size := 96) -> void:
 
 ## Fly-in animation for a control: from an offset + fade.
 static func fly_in(c: Control, delay := 0.0, from := Vector2(0, 60)) -> void:
-	var target := c.position
-	c.position = target + from
+	# Animates the anchor offsets, never `position`, so the control stays where its
+	# anchors put it if the window is resized mid-animation (Xogot's fullscreen hand-off).
+	var base := Vector4(c.offset_left, c.offset_top, c.offset_right, c.offset_bottom)
+	_shift(0.0, c, base, from)
 	c.modulate.a = 0.0
 	var t := c.create_tween().set_parallel(true)
-	t.tween_property(c, "position", target, 0.45).set_delay(delay).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	t.tween_method(_shift.bind(c, base, from), 0.0, 1.0, 0.45).set_delay(delay).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 	t.tween_property(c, "modulate:a", 1.0, 0.3).set_delay(delay)
+
+
+static func _shift(k: float, c: Control, base: Vector4, from: Vector2) -> void:
+	var d := from * (1.0 - k)
+	c.offset_left = base.x + d.x
+	c.offset_right = base.z + d.x
+	c.offset_top = base.y + d.y
+	c.offset_bottom = base.w + d.y
 
 
 ## Pop a control (scale up and back).
