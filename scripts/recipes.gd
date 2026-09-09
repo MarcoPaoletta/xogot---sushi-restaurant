@@ -49,14 +49,18 @@ const SLOT_STEP := 1.8
 
 
 ## X positions for `count` stations in centre-out order, 1.8 u apart, the innermost pair at ±1.35 so
-## the centre of the counter is used and the chef (and the pass behind him at X 0) still has its gap.
+## the centre of the counter is used and the chef (with the pass in front of him) fills the gap.
+## An odd count drops the slot immediately left of the chef instead of hanging one extra station off
+## the left end, so both ends of the row always sit the same distance from the middle of the room.
 ## Rice and nori come first in STATION_ORDER, so the ingredients every recipe needs are always nearest.
 static func station_slots(count: int) -> Array:
 	var xs: Array = []
-	for i in 5:
+	for i in int(ceil(count / 2.0)):
 		xs.append(-(1.35 + SLOT_STEP * i))
 		xs.append(1.35 + SLOT_STEP * i)
-	return xs.slice(0, mini(count, xs.size()))
+	if xs.size() > count:
+		xs.erase(-1.35)
+	return xs
 
 static var _scene_cache: Dictionary = {}
 

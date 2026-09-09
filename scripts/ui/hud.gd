@@ -49,6 +49,11 @@ func _ready() -> void:
 	act_btn.button_up.connect(TouchInput.release_act)
 	# On a Mac with a keyboard the on-screen buttons stay out of the way.
 	$Touch.visible = OS.get_name() in ["iOS", "Android"]
+	if $Touch.visible:
+		# The recipe book lives in the bottom-right corner; lift it over the action button on phones.
+		for c: Control in [menu_btn, $Menu]:
+			c.offset_top -= 210.0
+			c.offset_bottom -= 210.0
 
 
 func setup(restaurant: Node) -> void:

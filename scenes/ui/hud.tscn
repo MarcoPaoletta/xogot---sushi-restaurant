@@ -235,14 +235,17 @@ offset_bottom = -50.0
 text = "GRAB / MIX / SERVE"
 
 [node name="Menu" type="PanelContainer" parent="." unique_id=575170759]
-anchors_preset = 1
+anchors_preset = 3
 anchor_left = 1.0
+anchor_top = 1.0
 anchor_right = 1.0
+anchor_bottom = 1.0
 offset_left = -40.0
-offset_top = 270.0
+offset_top = -160.0
 offset_right = -40.0
-offset_bottom = 270.0
+offset_bottom = -160.0
 grow_horizontal = 0
+grow_vertical = 0
 mouse_filter = 2
 
 [node name="VBox" type="VBoxContainer" parent="Menu" unique_id=15619645]
@@ -280,11 +283,13 @@ light_color = Color(1, 0.8, 0.55, 1)
 light_energy = 0.7
 
 [node name="MenuButton" type="Button" parent="." unique_id=1240589538]
-anchors_preset = 1
+anchors_preset = 3
 anchor_left = 1.0
+anchor_top = 1.0
 anchor_right = 1.0
+anchor_bottom = 1.0
 offset_left = -140.0
-offset_top = 150.0
+offset_top = -140.0
 offset_right = -40.0
-offset_bottom = 250.0
+offset_bottom = -40.0
 text = "≡"
