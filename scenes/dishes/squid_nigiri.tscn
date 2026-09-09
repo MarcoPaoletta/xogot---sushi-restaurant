@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://dvqi3pqv6opho"]
+
+[ext_resource type="PackedScene" uid="uid://dnlrw7gwsanmo" path="res://assets/Sushi Restaurant Kit - May 2023/Food/glTF/FoodIngredient_Rice.gltf" id="1_6ne8p"]
+[ext_resource type="PackedScene" uid="uid://dgtrfl6luqfvj" path="res://assets/Sushi Restaurant Kit - May 2023/Food/glTF/FoodIngredient_Squid.gltf" id="2_x206j"]
+
+[node name="SquidNigiri" type="Node3D" unique_id=1129825800]
+
+[node name="Base" type="Node3D" parent="." unique_id=1564079726 instance=ExtResource("1_6ne8p")]
+transform = Transform3D(0.9, 0, 0, 0, 0.6, 0, 0, 0, 0.9, 0, 0, 0)
+
+[node name="Top" type="Node3D" parent="." unique_id=1942976277 instance=ExtResource("2_x206j")]
+transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0.32, 0)

@@ -21,10 +21,16 @@ func _ready() -> void:
 			model_root.add_child(_model)
 			_model.scale = Vector3.ONE * float(info.get("scale", 1.0))
 		label.text = info["name"]
-	# Neighbouring stations are 1.8 u apart: alternate label heights so long names never overlap.
-	var slot := int(round(global_position.x / 1.8))
-	label.position.y = 1.45 + (0.55 if posmod(slot, 2) == 1 else 0.0)
+	place(position.x)
 	set_unlocked(unlocked)
+
+
+## Puts the station at X on the back counter. Neighbouring stations are 1.8 u apart, so label
+## heights cycle through `levels` steps per slot and long names never overlap.
+func place(x: float, levels := 2) -> void:
+	position.x = x
+	var slot := int(round(x / Recipes.SLOT_STEP))
+	label.position.y = 1.45 + 0.5 * posmod(slot, levels)
 
 
 func set_unlocked(on: bool) -> void:

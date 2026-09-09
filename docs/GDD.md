@@ -4,7 +4,7 @@
 **Platform:** iPad and Mac (Xogot / Godot 4.7, Mobile renderer). Touch first; mouse works identically (one pointer).
 **Engine stamp:** `config/features = ["4.7", "Mobile"]` (Xogot 1.7.2 / Godot 4.7.2) — never upgraded by the build.
 **Art:** Quaternius *Sushi Restaurant Kit* (May 2023) and Quaternius *Ultimate Food Pack* (Oct 2019), both CC0, imported at `res://assets/Sushi Restaurant Kit - May 2023/` and `res://assets/Ultimate Food Pack - Oct 2019/` (the packs' own folder names, structure untouched).
-**Document version:** 3.1 — 2026-09-08 (1.0 pre-build specification; 1.1 implementation notes; 2.0 the moving-chef redesign in section 15; 3.0 the readability pass in section 16; 3.1 desktop fullscreen notes)
+**Document version:** 4.0 — 2026-09-08 (1.0 pre-build specification; 1.1 implementation notes; 2.0 the moving-chef redesign in section 15; 3.0 the readability pass in section 16; 3.1 desktop fullscreen notes; 4.0 the growing restaurant in section 17)
 **Status:** Specification. At the time of writing the project contains the two asset packs, this document and nothing else: zero scenes, zero scripts.
 
 ---
@@ -429,5 +429,33 @@ Changes after Marco played V2:
 - **Labels**: station labels 0.0105 pixel size, 56 px, alternating heights; "Sea urchin" is now "Urchin". The main-menu how-to line sits directly under the title and reads *walk with ◀ ▶ · grab ingredients · mix at the pass · serve the rabbits*.
 
 - **Desktop fullscreen.** `display/window/size/mode` is *Fullscreen* (mode 3), so the macOS build opens as a real fullscreen window instead of the 4:3 editor pane. The restaurant room was widened for 16:10 / 16:9: a fourth floor row at Z 10, side walls at Z 10 and a third wall row at Y 10.34, so no void shows at the edges with the same camera. The delivery truck outside the door was removed — its glass material forced a shader compile in the middle of the scene load, which deadlocked the exported build with a cold shader cache. On the title screen the すし sign moved left of the fridge (X −6.2) and the camera aims at Y 1.2, so the title and the how-to line sit on plain wall.
+
+## 17. V4 — a restaurant that grows
+
+Marco's brief after V3: *"every day you should add more ingredients, and expand the restaurant over time with more counters or stuff like that, modify the camera angle if needed."*
+
+### 17.1 Fourteen ingredients, fourteen dishes
+
+Five ingredients join the nine of V3, all from the Sushi Restaurant Kit: **Avocado**, **Crab** (crab sticks), **Eel**, **Squid** and **Mackerel** (shimesaba). They make five new dishes: Avocado Roll and Crab Roll (rice + nori + topping) and Unagi, Squid and Saba Nigiri (rice + topping). The kit has no finished models for these, so each one is a small composite scene in `res://scenes/dishes/` — a rice mound (or the plain roll) with the topping model on top — built in the editor and used everywhere a dish model is (the chef's hands, the order bubble, the recipe book icon, the served plate).
+
+| Day | New stations | Stations | Dishes | Seats | Customers | Room |
+|---|---|---|---|---|---|---|
+| 1 Opening | Rice, Nori, Salmon, Tuna | 4 | 3 | 2 | 8 | narrow |
+| 2 Regulars | Ebi, Cucumber | 6 | 5 | 3 | 10 | narrow |
+| 3 Lunch rush | Tamago, Octopus | 8 | 7 | 4 | 12 | narrow |
+| 4 Festival | Urchin, Avocado, Crab, Eel | 12 | 12 | 5 | 14 (patience 30 s, one every 5.5 s, target 200) | wide |
+| 5 Grand finale | Squid, Mackerel | 14 | 14 | 6 | 16 (patience 30 s, one every 5.5 s, target 240) | wide |
+
+Stations are no longer fixed to the counter: `Recipes.station_slots()` hands out X positions from the centre outwards (1.8 u apart, the pass in the gap at X 0) in ingredient order, so Rice and Nori — which every recipe needs — always sit beside the pass, Day 1's four stations hug the panda, and the rarer toppings spread along the whole counter on later days. (The first version filled the counter left to right; in the wide room that put Rice 14 u from the pass and every order became a full-length walk.) The narrow room has five slots per side; the wide room eight on the left and six on the right, because its sink moves to the right end. Labels alternate two heights in the narrow room and three in the wide one.
+
+### 17.2 The room
+
+Everything the room can become is in `restaurant.tscn`; `restaurant.gd` shows the pieces a day has earned (`UNLOCKS`, first day index per node) and switches wall sets:
+
+- **Days 1–3, narrow** (walls at X ±12): the dining room starts almost bare — sign and carpet — then gains the painting, bamboo and steamer (Day 2), lanterns, plants, sakura and bottles (Day 3). Stools appear with the seats a day uses (`Game.SEAT_SETS` fills the middle of the counter first).
+- **Days 4–5, wide** (walls at X ±16): the narrow side walls are swapped for the `Room/Wide` group (floor, back and side wall columns at X ±14, beams at ±16.2), the customer counter and the back counter extend to ±14, the fridge and oven move to the side walls, the sink to X 14, the door to X −18.5 and the chef can walk −14.6 … 14.4. Day 4 adds the fish, a second pair of lanterns; Day 5 a second painting, carpet, bamboo and plants.
+- **Camera** stays at pitch −30°: (0, 11.5, 17.5) narrow, (0, 14.2, 21.6) wide. A plank ceiling at Y 15.5 (flipped floor tiles) closes the room so the wider view never shows the void above the walls.
+- The recipe book splits into two columns from eight dishes up. The wall cabinet, steamer and bottles are only shown in the narrow room; in the wide one the centre stations need that space for their labels.
+- Pacing: the wide days give more patience and slower arrivals (a walk across fourteen stations is twice as long) and a double order every fifth (Day 4) or sixth (Day 5) customer. The scripted tester, which serves strictly one order at a time, completes every day.
 
 *End of document.*

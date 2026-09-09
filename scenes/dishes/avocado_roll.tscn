@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://cudqo31qeqwms"]
+
+[ext_resource type="PackedScene" uid="uid://d37fufdqege6v" path="res://assets/Sushi Restaurant Kit - May 2023/Food/glTF/Food_Roll.gltf" id="1_lfyo2"]
+[ext_resource type="PackedScene" uid="uid://rpi0lanpux06" path="res://assets/Sushi Restaurant Kit - May 2023/Food/glTF/FoodIngredient_Avocado.gltf" id="2_y4cxo"]
+
+[node name="AvocadoRoll" type="Node3D" unique_id=564923973]
+
+[node name="Base" type="Node3D" parent="." unique_id=1951159121 instance=ExtResource("1_lfyo2")]
+
+[node name="Top" type="Node3D" parent="." unique_id=319151969 instance=ExtResource("2_y4cxo")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.45, 0)

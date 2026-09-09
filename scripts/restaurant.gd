@@ -7,6 +7,20 @@ const KIT_CHARS := "res://assets/Sushi Restaurant Kit - May 2023/Characters/Norm
 const REACH := 1.35          # metres in X the chef can reach a station or a customer from
 const REACH_WIDE := 1.7      # the pass and the sink are bigger
 
+## The dining room grows over the week (GDD section 17): each entry is the first day index a piece shows.
+const UNLOCKS := {
+	"Decoration/Sign": 0, "Decoration/Carpet": 0,
+	"Decoration/Painting": 1, "Decoration/Bamboo": 1,
+	"Decoration/LanternL": 2, "Decoration/LanternR": 2, "Decoration/PlantL": 2, "Decoration/PlantR": 2,
+	"Decoration/Sakura": 2,
+	"Decoration/Fish": 3, "Decoration/LanternL2": 3, "Decoration/LanternR2": 3,
+	"Decoration/Painting2": 4, "Decoration/PlantL2": 4, "Decoration/PlantR2": 4, "Decoration/Carpet2": 4, "Decoration/Bamboo2": 4,
+	"Counter/SegmentWideL": 3, "Counter/SegmentWideR": 3,
+	"Kitchen/BackWideL": 3, "Kitchen/BackWideL2": 3, "Kitchen/BackWideR": 3, "Kitchen/BackWideR2": 3,
+}
+const NARROW_CAMERA := Vector3(0, 11.5, 17.5)
+const WIDE_CAMERA := Vector3(0, 14.2, 21.6)
+
 var day_index := 0
 var day: Dictionary = {}
 var earnings := 0
@@ -22,6 +36,7 @@ var finished := false
 var _tutorial_step := 0
 var _target: Node = null
 var _target_kind := ""
+var _seat_set: Array = []
 
 @onready var stations: Node3D = $Stations
 @onready var plate: Node3D = $Plate
@@ -40,8 +55,7 @@ func _ready() -> void:
 	add_to_group("restaurant")
 	day_index = Game.current_day
 	day = Game.DAYS[day_index]
-	for s in stations.get_children():
-		s.set_unlocked(day["stations"].has(s.ingredient))
+	_apply_layout()
 	chef.interact_requested.connect(_on_interact)
 	spawner.spawn_requested.connect(_spawn_customer)
 	spawner.build(day, day_index)
@@ -53,6 +67,52 @@ func _ready() -> void:
 	prompt.visible = false
 	Audio.play_music("day", 0.8, 1.0 + 0.03 * maxi(day_index - 2, 0))
 	_intro()
+
+
+## Shows the pieces of the room this day has earned, widens it from day 4 and lays the
+## day's stations out from the centre of the back counter.
+func _apply_layout() -> void:
+	var wide: bool = day.get("wide", false)
+	for path in UNLOCKS:
+		var n := get_node_or_null(path)
+		if n:
+			n.visible = day_index >= int(UNLOCKS[path])
+	$Kitchen/Steamer.visible = day_index >= 1 and not wide
+	$Kitchen/Bottles.visible = day_index >= 2 and not wide
+	$Room/Wide.visible = wide
+	$Room/SideNarrow.visible = not wide
+	$Kitchen/Back5.visible = not wide
+	# The wall cabinet sits where the wide counter's centre stations put their labels.
+	$Kitchen/Shelves.visible = not wide
+	if wide:
+		$Kitchen/Fridge.position = Vector3(-15.0, 0, 2.0)
+		$Kitchen/Fridge.rotation_degrees.y = 90
+		$Kitchen/Oven.position = Vector3(15.0, 0, 2.0)
+		$Kitchen/Oven.rotation_degrees.y = -90
+		sink.position.x = 14.0
+		door.position.x = -18.5
+		camera.position = WIDE_CAMERA
+		chef.set_range(-14.6, 14.4)
+	else:
+		camera.position = NARROW_CAMERA
+	_seat_set = Game.SEAT_SETS[int(day["seats"])]
+	for i in seats.get_child_count():
+		var stool := $Counter.get_node_or_null("Stool%d" % (i + 1))
+		if stool:
+			stool.visible = _seat_set.has(i)
+	var ids: Array = day["stations"]
+	var xs: Array = Recipes.station_slots(ids.size(), wide)
+	var k := 0
+	for id in Recipes.STATION_ORDER:
+		var s: Node = stations.get_node_or_null("Station" + id.capitalize())
+		if s == null:
+			continue
+		if ids.has(id) and k < xs.size():
+			s.place(float(xs[k]), 3 if wide else 2)
+			k += 1
+			s.set_unlocked(true)
+		else:
+			s.set_unlocked(false)
 
 
 func _intro() -> void:
@@ -245,7 +305,7 @@ func _fly_dish(dish: String, c: Node3D) -> void:
 func _spawn_customer(orders: Array, seat_index: int) -> void:
 	var c := CUSTOMER.instantiate()
 	c.name = "Customer%d" % (spawner.spawned + 1)
-	var seat: Node3D = seats.get_child(seat_index)
+	var seat: Node3D = seats.get_child(int(_seat_set[seat_index]))
 	var model_path: String = KIT_CHARS + spawner.model_for(spawner.spawned) + ".gltf"
 	c.setup(model_path, orders, float(day["patience"]), seat_index, seat.global_position, door.global_position)
 	c.served.connect(_on_customer_served)

@@ -5,13 +5,13 @@ extends Node3D
 signal interact_requested
 
 const SPEED := 7.5
-const MIN_X := -9.2
-const MAX_X := 9.6
 const STACK_STEP := 0.5
 const HAND_HEIGHT := 1.55      # Hands sits under Model, so it turns with the panda
 const HELD_SCALE := 1.3
 const DISH_SCALE := 1.7
 
+var min_x := -9.2                # walkable range; the restaurant widens it on days 4-5
+var max_x := 9.6
 var held: Array = []          # ingredient ids in pickup order
 var held_dish := ""           # dish id once mixed
 var control_enabled := true
@@ -40,7 +40,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _physics_process(delta: float) -> void:
 	var dir := TouchInput.axis() if control_enabled else 0.0
-	position.x = clampf(position.x + dir * SPEED * delta, MIN_X, MAX_X)
+	position.x = clampf(position.x + dir * SPEED * delta, min_x, max_x)
 	var moving := absf(dir) > 0.05
 	# Face the walking direction, and the customers when standing still.
 	var target_yaw := (PI / 2.0 if dir > 0.0 else -PI / 2.0) if moving else 0.0
@@ -65,6 +65,11 @@ func _update_anim(moving: bool) -> void:
 		clip = "Idle_Holding" if carrying else "Idle"
 	if _anim.current_animation != clip:
 		_anim.play(clip, 0.12)
+
+
+func set_range(p_min: float, p_max: float) -> void:
+	min_x = p_min
+	max_x = p_max
 
 
 func react(clip: String, lock := 0.8) -> void:

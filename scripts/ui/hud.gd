@@ -82,12 +82,28 @@ func _toggle_menu() -> void:
 func _build_menu(dishes: Array) -> void:
 	for c in menu_box.get_children():
 		c.queue_free()
-	for id in dishes:
+	# Up to 7 dishes stack in one column; later days split the board into two columns.
+	var columns: Array[VBoxContainer] = []
+	var column_count := 1 if dishes.size() <= 7 else 2
+	var strip := HBoxContainer.new()
+	strip.add_theme_constant_override("separation", 48)
+	strip.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	menu_box.add_child(strip)
+	for i in column_count:
+		var col := VBoxContainer.new()
+		col.add_theme_constant_override("separation", 8)
+		col.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		strip.add_child(col)
+		columns.append(col)
+	var per_column := int(ceil(float(dishes.size()) / column_count))
+	for n in dishes.size():
+		var id: String = dishes[n]
 		var row := HBoxContainer.new()
 		row.alignment = BoxContainer.ALIGNMENT_END
 		row.add_theme_constant_override("separation", 10)
 		row.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		menu_box.add_child(row)
+		@warning_ignore("integer_division")
+		columns[n / per_column].add_child(row)
 		var first := true
 		for ing in Recipes.DISHES[id]["ingredients"]:
 			if not first:
