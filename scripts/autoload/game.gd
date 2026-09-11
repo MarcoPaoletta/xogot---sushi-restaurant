@@ -102,8 +102,12 @@ func day_entry(index: int) -> Dictionary:
 	return save_data["days"].get(str(index), {})
 
 
+## Every day is open from the start, so any of them can be played (or recorded) directly.
+const ALL_DAYS_UNLOCKED := true
+
+
 func is_unlocked(index: int) -> bool:
-	return index == 0 or day_entry(index - 1).get("completed", false)
+	return ALL_DAYS_UNLOCKED or index == 0 or day_entry(index - 1).get("completed", false)
 
 
 func total_stars() -> int:
