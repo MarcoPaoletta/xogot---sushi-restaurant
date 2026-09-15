@@ -57,7 +57,7 @@ The commit history of this repo follows the build order in section 12.2 one step
 
 ## License
 
-The project is released under the **MIT License** (see [`LICENSE`](LICENSE)). The `assets/` folder includes third-party content that ships under its own licenses: the two Quaternius packs are **CC0 1.0** and the Lilita One font is **SIL OFL 1.1**. Each keeps its license file inside its folder, and the note at the end of `LICENSE` lists them.
+The project is released under the **MIT License** (see [`LICENSE`](LICENSE)). The `assets/` folder includes third-party content that ships under its own licenses: the two Quaternius packs are **CC0 1.0** and the Lilita One font is **SIL OFL 1.1**. Each keeps its license file inside its folder, and [`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md) lists them.
 
 ## Credits
 
