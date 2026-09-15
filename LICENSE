@@ -1,0 +1,47 @@
+MIT License
+
+Copyright (c) 2026 Letta Corporation (Marco Paoletta)
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+----------------------------------------------------------------------
+
+THIRD-PARTY ASSETS (the assets/ folder)
+
+The MIT license above covers the project's own work: scenes, scripts,
+shaders, materials, the generated audio (assets/audio, produced by
+tools/gen_audio.py) and the documentation in docs/.
+
+The assets/ folder also contains third-party content that ships under its
+own, separate license. Each pack keeps its license file inside its folder:
+
+  assets/Sushi Restaurant Kit - May 2023/   Quaternius, CC0 1.0 Universal
+                                            (see LICENSE.txt in that folder)
+                                            https://quaternius.com/packs/sushirestaurantkit.html
+
+  assets/Ultimate Food Pack - Oct 2019/     Quaternius, CC0 1.0 Universal
+                                            (see License.txt in that folder)
+                                            https://quaternius.com/packs/ultimatefood.html
+
+  assets/fonts/LilitaOne-Regular.ttf        Juan Montoreano, SIL Open Font
+                                            License 1.1 (see OFL.txt in that
+                                            folder)
+
+Those licenses apply to those files regardless of the MIT license on the
+rest of the repository.
